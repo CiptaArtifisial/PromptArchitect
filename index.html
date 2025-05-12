@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptCraft Pro - Advanced AI Prompt Architect</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 950px; 
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .prompt-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Accordion Styles */
+        .accordion-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .accordion-item summary {
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #e9ecef;
+            color: #343a40;
+            border-bottom: 1px solid #ddd;
+            list-style-position: inside;
+            position: relative;
+            padding-left: 40px; 
+        }
+
+        .accordion-item summary::-webkit-details-marker,
+        .accordion-item summary::marker {
+            display: none;
+        }
+
+        .accordion-item summary::before {
+            content: '+';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+        .accordion-item[open] summary::before {
+            content: '−';
+        }
+
+        .accordion-item[open] summary {
+            background-color: #007bff;
+            color: white;
+            border-bottom-color: #0056b3;
+        }
+
+        .accordion-content {
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .accordion-item[open] .accordion-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .settings-section { /* For Google Sheet URL */
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+
+        fieldset {
+            border: 1px solid #ced4da;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #495057;
+            padding: 0 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #fff; 
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="url"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+            outline: none;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .form-group input[type="checkbox"] + label {
+            display: inline;
+            font-weight: normal;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .architect-tip {
+            background-color: #eef7ff;
+            border-left: 3px solid #007bff;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-style: italic;
+            color: #004085;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .dynamic-select-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .dynamic-select-group select {
+            flex-grow: 1;
+        }
+        .dynamic-select-group button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            flex-shrink: 0; 
+        }
+        .dynamic-select-group button:hover {
+            background-color: #0056b3;
+        }
+        .selected-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            min-height: 30px; 
+            background-color: #f8f9fa;
+        }
+        .selected-item-tag {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px; 
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 3px;
+            font-size: 1.1em;
+            line-height: 1;
+        }
+        .remove-item-btn:hover {
+            color: #ffdddd;
+        }
+
+        .live-preview-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .live-preview-section h2 {
+            margin-top: 0;
+            color: #343a40;
+        }
+
+        #livePreview {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px; 
+        }
+
+        #copyPromptButton, #resetFormButton, #exportCsvButton, #saveToSheetButton { 
+            color: white;
+            padding: 10px 15px; 
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s;
+            flex-grow: 1; 
+            min-width: 120px; 
+        }
+        #copyPromptButton { background-color: #28a745; }
+        #copyPromptButton:hover { background-color: #218838; }
+
+        #resetFormButton { background-color: #dc3545; }
+        #resetFormButton:hover { background-color: #c82333; }
+
+        #exportCsvButton { background-color: #17a2b8; } 
+        #exportCsvButton:hover { background-color: #138496; }
+
+        #saveToSheetButton { background-color: #ffc107; color: #212529; } /* Warning yellow */
+        #saveToSheetButton:hover { background-color: #e0a800; }
+
+
+        .copy-notification { /* Reused for other notifications too */
+            display: none;
+            margin-left: 10px; 
+            padding: 8px 12px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            font-size: 0.9em;
+            flex-basis: 100%; 
+            margin-top: 5px;
+        }
+        
+        #csvOutputArea { 
+            width: 100%;
+            min-height: 60px;
+            padding: 10px;
+            border: 1px dashed #007bff;
+            border-radius: 4px;
+            background-color: #eef7ff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            box-sizing: border-box;
+            margin-top: 10px;
+            display: none; 
+        }
+
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .dynamic-select-group { flex-direction: column; align-items: stretch; }
+            .dynamic-select-group select, .dynamic-select-group button { width: 100%; }
+            .accordion-item summary { padding-left: 35px; }
+            .accordion-item summary::before { left: 10px; }
+            .action-buttons { flex-direction: column; align-items: stretch; }
+            .action-buttons button { width: 100%; }
+            .copy-notification { margin-left: 0; margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PromptCraft Pro</h1>
+            <p>Advanced AI Prompt Architect & Database Assistant</p>
+        </header>
+
+        <main id="promptCraftAppContainer"> <!-- Wrapped main content for form reset -->
+        <form id="promptCraftForm">
+            <div class="sections">
+                <!-- Section 1: Foundation -->
+                <details class="accordion-item" open>
+                    <summary class="accordion-header">1. Foundation & Output</summary>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label for="primarySubject">Primary Subject/Concept:</label>
+                            <input type="text" id="primarySubject" placeholder="e.g., A majestic griffin, an abandoned spaceship">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUrl">Result Image URL (for database):</label>
+                            <input type="url" id="imageUrl" placeholder="https://example.com/path/to/your/image.jpg">
+                            <small>After generating the image, paste its URL here to save it with the prompt.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="overallStyleSingle">Overall Style(s):</label>
+                            <div class="dynamic-select-group">
+                                <select id="overallStyleSingle">
+                                    <option value="">-- Select a Style to Add --</option>
+                                    <optgroup label="Photographic & Realistic">
+                                        <option value="Photorealistic">Photorealistic</option>
+                                        <option value="Cinematic Realism">Cinematic Realism</option>
+                                        <option value="Fashion Editorial">Fashion Editorial</option>
+                                        <option value="Macro Photography Style">Macro Photography Style</option>
+                                        <option value="Long Exposure Photography">Long Exposure Photography</option>
+                                        <option value="High-Speed Photography">High-Speed Photography</option>
+                                        <option value="Tilt-Shift Photography (Miniature Effect)">Tilt-Shift Photography (Miniature Effect)</option>
+                                        <option value="Lomography Aesthetic">Lomography Aesthetic</option>
+                                        <option value="Documentary Photo Style">Documentary Photo Style</option>
+                                    </optgroup>
+                                    <optgroup label="Anime & Manga">
+                                        <option value="Anime Key Visual">Anime Key Visual (General)</option>
+                                        <option value="Studio Ghibli Aesthetic">Studio Ghibli Aesthetic</option>
+                                        <option value="Shonen Manga Style (e.g., Dragon Ball, Naruto)">Shonen Manga Style</option>
+                                        <option value="Shojo Manga Style (e.g., Sailor Moon)">Shojo Manga Style</option>
+                                        <option value="90s Cel Anime Style">90s Cel Anime Style</option>
+                                        <option value="Modern Anime (e.g., Demon Slayer)">Modern Anime (e.g., Demon Slayer)</option>
+                                        <option value="Mecha Anime Design (e.g., Gundam)">Mecha Anime Design</option>
+                                        <option value="Cyberpunk Anime (e.g., Ghost in the Shell)">Cyberpunk Anime</option>
+                                        <option value="Chibi Style">Chibi Style</option>
+                                    </optgroup>
+                                    <optgroup label="Animation Styles">
+                                        <option value="Claymation (Aardman Style)">Claymation (Aardman Style)</option>
+                                        <option value="Stop-Motion Puppetry">Stop-Motion Puppetry</option>
+                                        <option value="Lego Brick-Built Scene">Lego Brick-Built Scene</option>
+                                        <option value="Classic 2D Cel Animation (Disney Renaissance)">Classic 2D Cel Animation</option>
+                                        <option value="Modern 3D CGI (Pixar Aesthetic)">Modern 3D CGI (Pixar Aesthetic)</option>
+                                        <option value="Motion Graphics Style">Motion Graphics Style</option>
+                                        <option value="Rotoscoping Animation">Rotoscoping Animation</option>
+                                    </optgroup>
+                                    <optgroup label="Art Movements & Periods">
+                                        <option value="Impressionistic Painting">Impressionistic Painting</option>
+                                        <option value="Surreal Conceptual Art">Surreal Conceptual Art (Dali-esque)</option>
+                                        <option value="Cubism (Picasso-esque)">Cubism (Picasso-esque)</option>
+                                        <option value="Pop Art (Warhol Style)">Pop Art (Warhol Style)</option>
+                                        <option value="Abstract Expressionism">Abstract Expressionism</option>
+                                        <option value="Minimalism">Minimalism</option>
+                                        <option value="Art Deco">Art Deco</option>
+                                        <option value="Art Nouveau">Art Nouveau</option>
+                                        <option value="Bauhaus Design">Bauhaus Design</option>
+                                        <option value="Baroque Painting">Baroque Painting</option>
+                                        <option value="Renaissance Painting">Renaissance Painting</option>
+                                        <option value="Romanticism">Romanticism</option>
+                                    </optgroup>
+                                    <optgroup label="Digital, Sci-Fi & Fantasy">
+                                        <option value="Vintage Sci-Fi">Vintage Sci-Fi</option>
+                                        <option value="Cyberpunk Cityscape">Cyberpunk Cityscape</option>
+                                        <option value="Steampunk Contraption">Steampunk Contraption</option>
+                                        <option value="Biomechanical Art (Giger-esque)">Biomechanical Art (Giger-esque)</option>
+                                        <option value="SolarPunk Utopia">SolarPunk Utopia</option>
+                                        <option value="Vaporwave Aesthetic">Vaporwave Aesthetic</option>
+                                        <option value="Glitch Art">Glitch Art</option>
+                                        <option value="Voxel Art">Voxel Art</option>
+                                        <option value="Low Poly Diorama">Low Poly Diorama</option>
+                                        <option value="Concept Art (Video Game/Film)">Concept Art (Video Game/Film)</option>
+                                        <option value="Fantasy Map Illustration">Fantasy Map Illustration</option>
+                                        <option value="Dark Fantasy Art">Dark Fantasy Art</option>
+                                    </optgroup>
+                                    <optgroup label="Traditional & Illustrative">
+                                        <option value="Watercolor Painting">Watercolor Painting</option>
+                                        <option value="Oil Painting (Classical)">Oil Painting (Classical)</option>
+                                        <option value="Ukiyo-e Woodblock Print">Ukiyo-e Woodblock Print</option>
+                                        <option value="Technical Drawing/Blueprint">Technical Drawing/Blueprint</option>
+                                        <option value="Botanical Illustration">Botanical Illustration</option>
+                                        <option value="Illuminated Manuscript Page">Illuminated Manuscript Page</option>
+                                        <option value="Stained Glass Window Design">Stained Glass Window Design</option>
+                                        <option value="Charcoal Sketch">Charcoal Sketch</option>
+                                        <option value="Ink Drawing (Hatching/Crosshatching)">Ink Drawing (Hatching/Crosshatching)</option>
+                                        <option value="Children's Book Illustration">Children's Book Illustration</option>
+                                    </optgroup>
+                                    <optgroup label="Unique & Esoteric">
+                                        <option value="Chromatic Aberration Art">Chromatic Aberration Art</option>
+                                        <option value="Liquid Metal Sculpture">Liquid Metal Sculpture</option>
+                                        <option value="Bioluminescent Organisms">Bioluminescent Organisms Style</option>
+                                        <option value="Generative Art (Processing.org Style)">Generative Art (Processing.org Style)</option>
+                                        <option value="Data-Moshing Visuals">Data-Moshing Visuals</option>
+                                        <option value="Infrared Photography Style">Infrared Photography Style</option>
+                                        <option value="Circuit Board Tracery">Circuit Board Tracery</option>
+                                        <option value="Ornate Filigree Metalwork">Ornate Filigree Metalwork</option>
+                                    </optgroup>
+                                </select>
+                                <button type="button" id="addOverallStyleButton">+ Add Style</button>
+                            </div>
+                            <div id="selectedOverallStylesContainer" class="selected-items-container"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dominantMoods">Dominant Mood(s) (comma-separated):</label>
+                            <input type="text" id="dominantMoods" placeholder="e.g., mysterious, serene, energetic, melancholic">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Section 2: Visuals (Content same as before, omitted for brevity) -->
+                <details class="accordion-item">
+                    <summary class="accordion-header">2. Visuals - "The Lens & Light"</summary>
+                    <div class="accordion-content">
+                        <fieldset>
+                            <legend>Camera & Film Emulation</legend>
+                            <div class="form-group">
+                                <label for="imagingDevice">Imaging Device:</label>
+                                <select id="imagingDevice">
+                                    <option value="">-- Select Device --</option>
+                                    <option value="Professional DSLR (e.g., Canon 5D Mark IV)">Professional DSLR (Canon 5D Mark IV)</option>
+                                    <option value="Classic Leica M-series">Classic Leica M-series</option>
+                                    <option value="High-End Cinema Camera (e.g., RED Monstro)">High-End Cinema Camera (RED Monstro)</option>
+                                    <option value="Modern Smartphone (e.g., iPhone 15 Pro)">Modern Smartphone (iPhone 15 Pro)</option>
+                                    <option value="Vintage Film Camera (e.g., Hasselblad 500CM)">Vintage Film Camera (Hasselblad 500CM)</option>
+                                    <option value="Analog 35mm SLR">Analog 35mm SLR</option>
+                                    <option value="Large Format View Camera">Large Format View Camera</option>
+                                    <option value="Instant Film (e.g., Polaroid SX-70)">Instant Film (Polaroid SX-70)</option>
+                                    <option value="Drone FPV footage">Drone FPV footage</option>
+                                    <option value="Security camera footage">Security camera footage</option>
+                                    <option value="Pinhole camera">Pinhole camera</option>
+                                    <option value="Thermal Imaging Camera">Thermal Imaging Camera</option>
+                                    <option value="Electron Microscope">Electron Microscope</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lensSimulation">Lens Type/Effect:</label>
+                                <select id="lensSimulation">
+                                    <option value="">-- Select Lens (updates with device) --</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="filmStock">Film Stock/Sensor Style (Optional):</label>
+                                <input type="text" id="filmStock" placeholder="e.g., Kodachrome 64, Clean digital sensor (placeholder updates with device)">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="includeMetaHints" name="includeMetaHints">
+                                <label for="includeMetaHints">Include Professional File Meta-Hints?</label>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Lighting Scheme</legend>
+                            <div class="form-group">
+                                <label for="primaryLightSource">Primary Light Source:</label>
+                                <select id="primaryLightSource">
+                                    <option value="">-- Select Light Source --</option>
+                                    <option value="Golden hour sunlight">Golden hour sunlight</option>
+                                    <option value="Studio softbox setup">Studio softbox setup</option>
+                                    <option value="Dramatic single spotlight">Dramatic single spotlight</option>
+                                    <option value="Neon street lights at night">Neon street lights at night</option>
+                                    <option value="Moonlit ambiance">Moonlit ambiance</option>
+                                    <option value="Overcast natural light">Overcast natural light</option>
+                                    <option value="Rim lighting">Rim lighting</option>
+                                    <option value="Bioluminescent glow">Bioluminescent glow</option>
+                                    <option value="Candlelight">Candlelight</option>
+                                    <option value="Harsh midday sun">Harsh midday sun</option>
+                                    <option value="Volumetric god rays">Volumetric god rays</option>
+                                    <option value="Crackling fireplace">Crackling fireplace</option>
+                                    <option value="Dappled sunlight through trees">Dappled sunlight through trees</option>
+                                    <option value="Kino Flo style continuous light">Kino Flo style continuous light</option>
+                                    <option value="Projected light patterns">Projected light patterns</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lightingQuality">Lighting Quality:</label>
+                                <select id="lightingQuality">
+                                    <option value="">-- Select Lighting Quality --</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </div>
+                </details>
+
+                <!-- Section 3: Setting & Composition (Content same as before, omitted for brevity) -->
+                 <details class="accordion-item">
+                    <summary class="accordion-header">3. Setting & Composition - "The Scene"</summary>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label for="environmentBackdrop">Environment/Backdrop:</label>
+                            <textarea id="environmentBackdrop" rows="3" placeholder="e.g., 'a minimalist glass cube suspended in a nebula,' 'a cluttered antique shop on a rainy Parisian alley,' 'vogue.com inspired clean studio backdrop'"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="shotType">Shot Type/Framing:</label>
+                            <select id="shotType">
+                                <option value="">-- Select Shot Type --</option>
+                                <option value="Extreme close-up">Extreme close-up</option>
+                                <option value="Close-up shot">Close-up shot</option>
+                                <option value="Medium close-up">Medium close-up</option>
+                                <option value="Medium shot">Medium shot</option>
+                                <option value="Cowboy shot (mid-thigh up)">Cowboy shot (mid-thigh up)</option>
+                                <option value="Medium full body shot">Medium full body shot</option>
+                                <option value="Full body shot">Full body shot</option>
+                                <option value="Long shot">Long shot</option>
+                                <option value="Establishing shot">Establishing shot</option>
+                                <option value="Sweeping landscape long shot">Sweeping landscape long shot</option>
+                                <option value="Dutch angle">Dutch angle</option>
+                                <option value="Bird's-eye view (Top-down)">Bird's-eye view (Top-down)</option>
+                                <option value="Worm's-eye view (Low-angle)">Worm's-eye view (Low-angle)</option>
+                                <option value="Point-of-view (POV)">Point-of-view (POV)</option>
+                                <option value="Over-the-shoulder shot">Over-the-shoulder shot</option>
+                                <option value="Symmetrical framing">Symmetrical framing</option>
+                                <option value="Rule of thirds composition">Rule of thirds composition</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="artisticElements">Artistic Elements (Movement/Artist Inspiration, comma-separated):</label>
+                            <input type="text" id="artisticElements" placeholder="e.g., Art Nouveau, by H.R. Giger, reminiscent of Moebius, in the style of Zdzisław Beksiński">
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Section 4: Artistic Flair & Modifiers (Content same as before, omitted for brevity) -->
+                <details class="accordion-item">
+                    <summary class="accordion-header">4. Artistic Flair & Modifiers - "The Signature Touch"</summary>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label for="detailTextureSingle">Detail & Texture Keywords:</label>
+                            <div class="dynamic-select-group">
+                                <select id="detailTextureSingle">
+                                     <option value="">-- Select Detail/Texture to Add --</option>
+                                </select>
+                                <button type="button" id="addDetailTextureButton">+ Add Detail</button>
+                            </div>
+                            <div id="selectedDetailTexturesContainer" class="selected-items-container"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="colorPaletteSingle">Color Palette Guidance:</label>
+                            <div class="dynamic-select-group">
+                                <select id="colorPaletteSingle">
+                                     <option value="">-- Select Color Palette/Concept to Add --</option>
+                                </select>
+                                <button type="button" id="addColorPaletteButton">+ Add Palette</button>
+                            </div>
+                            <div id="selectedColorPalettesContainer" class="selected-items-container"></div>
+                             <input type="text" id="customColorPalette" placeholder="Or describe a custom palette here (e.g., deep blues and fiery oranges)" style="margin-top:10px;">
+                        </div>
+                        <div class="form-group">
+                            <label for="secretKeywordSingle">Advanced Modifiers & "Secret Keywords":</label>
+                             <div class="dynamic-select-group">
+                                <select id="secretKeywordSingle">
+                                    <option value="">-- Select a Modifier to Add --</option>
+                                    <option value="archival film still">archival film still</option>
+                                    <option value="contact sheet scan">contact sheet scan</option>
+                                    <option value="Getty Images watermark aesthetic">Getty Images watermark aesthetic (style)</option>
+                                    <option value="National Geographic circa 1982">National Geographic circa 1982</option>
+                                    <option value="Kirlian photography effect">Kirlian photography effect</option>
+                                    <option value="decalcomania textures">decalcomania textures</option>
+                                    <option value="subtle glitch art overlay">subtle glitch art overlay</option>
+                                    <option value="double exposure">double exposure</option>
+                                    <option value="cinematic color grading">cinematic color grading</option>
+                                    <option value="chromatic aberration (subtle)">chromatic aberration (subtle)</option>
+                                    <option value="bokeh background">bokeh background</option>
+                                    <option value="lens flare">lens flare</option>
+                                    <option value="film grain (light)">film grain (light)</option>
+                                    <option value="film grain (medium)">film grain (medium)</option>
+                                    <option value="film grain (heavy)">film grain (heavy)</option>
+                                    <option value="atmospheric perspective">atmospheric perspective</option>
+                                    <option value="anamorphic bloom">anamorphic bloom</option>
+                                    <option value="light painting trails">light painting trails</option>
+                                    <option value="scanlines effect">scanlines effect (subtle)</option>
+                                    <option value="infrared photography look">infrared photography look</option>
+                                    <option value="vector art style lines">vector art style lines</option>
+                                    <option value="moire pattern effect">moire pattern effect</option>
+                                </select>
+                                <button type="button" id="addSecretKeywordButton">+ Add Modifier</button>
+                            </div>
+                            <div id="selectedSecretKeywordsContainer" class="selected-items-container"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="targetPlatform">Target Platform Hint (Optional):</label>
+                            <select id="targetPlatform">
+                                <option value="">-- None --</option>
+                                <option value="Midjourney">Midjourney</option>
+                                <option value="DALL-E (ChatGPT/API)">DALL-E (ChatGPT/API)</option>
+                                <option value="Stable Diffusion (various UIs)">Stable Diffusion (various UIs)</option>
+                                <option value="Leonardo AI">Leonardo AI</option>
+                                <option value="Adobe Firefly">Adobe Firefly</option>
+                                <option value="Google Gemini Image Generation">Google Gemini Image Generation</option>
+                                <option value="Ideogram">Ideogram</option>
+                                <option value="NightCafe Creator">NightCafe Creator</option>
+                                <option value="Playground AI">Playground AI</option>
+                                <option value="Canva AI">Canva AI Image Generator</option>
+                                <option value="Microsoft Designer (Image Creator)">Microsoft Designer (Image Creator)</option>
+                                <option value="Freepik AI">Freepik AI</option>
+                                <option value="Artbreeder">Artbreeder</option>
+                                <option value="Deep Dream Generator">Deep Dream Generator</option>
+                                <option value="Civitai (for model specific prompts)">Civitai (for model specific prompts)</option>
+                                <option value="Krea AI">Krea AI</option>
+                            </select>
+                        </div>
+                    </div>
+                </details>
+
+                 <!-- Settings Section for Google Apps Script URL -->
+              
+            </div> <!-- .sections -->
+
+            <div class="live-preview-section">
+                <h2>Live Prompt Preview:</h2>
+                <textarea id="livePreview" rows="10" readonly placeholder="Your detailed prompt will appear here as you make selections..."></textarea>
+                <div class="action-buttons">
+                    <button type="button" id="copyPromptButton">Copy Prompt</button>
+                    <button type="button" id="saveToSheetButton">Save to Google Sheet</button>
+                    <button type="button" id="exportCsvButton">Export for Database (CSV)</button>
+                    <button type="button" id="resetFormButton">Reset All</button>
+                    <div id="copyNotification" class="copy-notification"></div> 
+                </div>
+                <textarea id="csvOutputArea" readonly placeholder="CSV data for your database will appear here..."></textarea>
+            </div>
+        </form> <!-- #promptCraftForm -->
+        </main> <!-- #promptCraftAppContainer -->
+
+        <footer>
+            <p>© 2023-2024 PromptCraft Pro. Empowering extraordinary AI images.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        // --- DOM Element References ---
+        const promptCraftForm = document.getElementById('promptCraftForm');
+        const livePreview = document.getElementById('livePreview');
+        const copyPromptButton = document.getElementById('copyPromptButton');
+        const resetFormButton = document.getElementById('resetFormButton');
+        const exportCsvButton = document.getElementById('exportCsvButton');
+        const saveToSheetButton = document.getElementById('saveToSheetButton');
+        // const googleSheetWebAppUrlInput = document.getElementById('googleSheetWebAppUrl'); // No longer needed if hardcoded
+        const csvOutputArea = document.getElementById('csvOutputArea');
+        const copyNotification = document.getElementById('copyNotification');
+
+        const primarySubjectInput = document.getElementById('primarySubject');
+        const imageUrlInput = document.getElementById('imageUrl');
+        const dominantMoodsInput = document.getElementById('dominantMoods');
+        const imagingDeviceSelect = document.getElementById('imagingDevice');
+        const lensSimulationSelect = document.getElementById('lensSimulation');
+        const filmStockInput = document.getElementById('filmStock');
+        const includeMetaHintsCheckbox = document.getElementById('includeMetaHints');
+        const primaryLightSourceSelect = document.getElementById('primaryLightSource');
+        const lightingQualitySelect = document.getElementById('lightingQuality');
+        const environmentBackdropTextarea = document.getElementById('environmentBackdrop');
+        const shotTypeSelect = document.getElementById('shotType');
+        const artisticElementsInput = document.getElementById('artisticElements');
+        const customColorPaletteInput = document.getElementById('customColorPalette');
+        const targetPlatformSelect = document.getElementById('targetPlatform');
+
+        const overallStyleSingleSelect = document.getElementById('overallStyleSingle');
+        const addOverallStyleButton = document.getElementById('addOverallStyleButton');
+        const selectedOverallStylesContainer = document.getElementById('selectedOverallStylesContainer');
+
+        const detailTextureSingleSelect = document.getElementById('detailTextureSingle');
+        const addDetailTextureButton = document.getElementById('addDetailTextureButton');
+        const selectedDetailTexturesContainer = document.getElementById('selectedDetailTexturesContainer');
+
+        const colorPaletteSingleSelect = document.getElementById('colorPaletteSingle');
+        const addColorPaletteButton = document.getElementById('addColorPaletteButton');
+        const selectedColorPalettesContainer = document.getElementById('selectedColorPalettesContainer');
+
+        const secretKeywordSingleSelect = document.getElementById('secretKeywordSingle');
+        const addSecretKeywordButton = document.getElementById('addSecretKeywordButton');
+        const selectedSecretKeywordsContainer = document.getElementById('selectedSecretKeywordsContainer');
+
+        // --- Hardcoded Google Apps Script Web App URL ---
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz9_Zfv67TZodpoFByc4wF6ME2H5mKmDzWfOLejc9kMGdwNoBqpA7EM9nAn-0QRgUZJ/exec";
+
+        // --- Data Structures ---
+        let selectedStylesArray = [];
+        let selectedDetailTexturesArray = [];
+        let selectedColorPalettesArray = [];
+        let selectedKeywordsArray = [];
+
+        const deviceCompatibility = {
+            "Professional DSLR (e.g., Canon 5D Mark IV)": { lenses: [{ value: "85mm f/1.4 portrait lens", text: "85mm Portrait (Shallow DOF)" }, { value: "35mm street photography lens", text: "35mm Street (Versatile)" }, { value: "Macro lens with extreme detail", text: "Macro Lens (Extreme Detail)" }], filmStockPlaceholder: "e.g., Clean digital sensor, RAW quality, Neutral profile" },
+            "Classic Leica M-series": { lenses: [{ value: "Leica Summilux 35mm f/1.4", text: "Leica Summilux 35mm" }, { value: "Leica Noctilux 50mm f/0.95", text: "Leica Noctilux 50mm (Low Light)" }], filmStockPlaceholder: "e.g., Leica sensor look, Monochrome high contrast" },
+            "High-End Cinema Camera (e.g., RED Monstro)": { lenses: [{ value: "Cinema prime lens (e.g., Arri Master Prime 35mm)", text: "Cinema Prime 35mm" }, { value: "Anamorphic lens with characteristic flare", text: "Anamorphic Lens" }], filmStockPlaceholder: "e.g., .R3D RAW quality, Cinematic color science" },
+            "Modern Smartphone (e.g., iPhone 15 Pro)": { lenses: [{ value: "Smartphone main wide lens", text: "Smartphone Main Wide" }, { value: "Smartphone ultrawide lens", text: "Smartphone Ultrawide" }, { value: "Smartphone telephoto lens", text: "Smartphone Telephoto" }], filmStockPlaceholder: "e.g., .HEIC quality, HDR processing, Portrait mode bokeh" },
+            "Vintage Film Camera (e.g., Hasselblad 500CM)": { lenses: [{ value: "Hasselblad Carl Zeiss Planar 80mm f/2.8", text: "Hasselblad Planar 80mm" }, {value: "Petzval lens with swirly bokeh", text: "Petzval Lens (Swirly Bokeh)"}], filmStockPlaceholder: "e.g., Kodachrome 64, Ilford HP5 grain, Medium format film" },
+            "Analog 35mm SLR": { lenses: [{ value: "Classic 50mm f/1.8 lens", text: "Classic 50mm f/1.8" }, {value: "Vintage 28mm wide-angle lens", text: "Vintage 28mm Wide"}], filmStockPlaceholder: "e.g., Kodak Portra 400, Fujifilm Superia, Expired film" },
+            "Large Format View Camera": { lenses: [{ value: "Schneider Symmar-S 150mm f/5.6", text: "View Camera 150mm" }], filmStockPlaceholder: "e.g., 4x5 sheet film, Extreme detail, Scheimpflug effect" },
+            "Instant Film (e.g., Polaroid SX-70)": { lenses: [{ value: "Polaroid SX-70 standard lens", text: "Polaroid SX-70 Lens" }], filmStockPlaceholder: "e.g., Polaroid SX-70 film, Faded colors, Light leaks" },
+            "Drone FPV footage": { lenses: [{ value: "Wide-angle FPV drone lens", text: "Wide FPV Drone Lens" }], filmStockPlaceholder: "e.g., GoPro sensor look, Prop blur, Action camera footage" },
+            "Security camera footage": { lenses: [{ value: "Fixed wide-angle security lens", text: "Fixed Security Lens" }], filmStockPlaceholder: "e.g., Low resolution, CCTV aesthetic, Timestamp overlay" },
+            "Pinhole camera": { lenses: [{ value: "Pinhole aperture effect", text: "Pinhole Aperture Effect" }], filmStockPlaceholder: "e.g., Soft focus, Long exposure blur, Vignetting" },
+            "Thermal Imaging Camera": { lenses: [{ value: "Thermal lens", text: "Thermal Lens" }], filmStockPlaceholder: "e.g., Heat map, FLIR aesthetic, False color" },
+            "Electron Microscope": { lenses: [{ value: "Electron beam focus", text: "Electron Beam Focus" }], filmStockPlaceholder: "e.g., SEM imagery, Nanoscale detail, Grayscale high contrast" },
+            "": { lenses: [{ value: "", text: "-- Select Lens --" }, { value: "Generic 50mm lens", text:"Generic 50mm lens"}], filmStockPlaceholder: "e.g., General purpose stock" }
+        };
+        const lightingQualityOptions = [
+            { value: "", text: "-- Select Lighting Quality --" }, { value: "Soft diffused lighting", text: "Soft Diffused (Even, gentle shadows)" }, { value: "Hard crisp shadows", text: "Hard Crisp Shadows (Defined, dramatic)" }, { value: "Volumetric lighting (god rays, haze)", text: "Volumetric (God rays, haze, visible beams)" }, { value: "Misty and atmospheric", text: "Misty & Atmospheric (Obscured, moody)" }, { value: "Ethereal glow", text: "Ethereal Glow (Soft, dreamlike radiance)" }, { value: "Flat and even lighting", text: "Flat & Even (Minimal shadows, studio look)" }, { value: "High contrast lighting", text: "High Contrast (Strong lights and darks)" }, { value: "Low key lighting", text: "Low Key (Dark, moody, selective highlights)" }, { value: "High key lighting", text: "High Key (Bright, airy, minimal shadows)" }, { value: "Backlighting", text: "Backlighting (Subject silhouetted or haloed)" }, { value: "Chiaroscuro", text: "Chiaroscuro (Strong light/dark contrast, classic)" }, { value: "Natural window light", text: "Natural Window Light" }, { value: "Studio ring light", text: "Studio Ring Light (Beauty shots)" }, { value: "Caustic lighting patterns", text: "Caustic Lighting (Refracted light patterns)"} ];
+        const detailTextureOptionsData = [
+            { value: "", text: "-- Select Detail/Texture to Add --" }, { value: "Hyper-detailed", text: "Hyper-detailed" }, { value: "Intricate textures", text: "Intricate Textures" }, { value: "Smooth finish", text: "Smooth Finish" }, { value: "Gritty realism", text: "Gritty Realism" }, { value: "Ultrarealistic", text: "Ultrarealistic" }, { value: "8k resolution aesthetic", text: "8K Resolution Aesthetic" }, { value: "4k resolution aesthetic", text: "4K Resolution Aesthetic" }, { value: "Octane render aesthetic", text: "Octane Render Aesthetic" }, { value: "Unreal Engine aesthetic", text: "Unreal Engine Aesthetic" }, { value: "Vray render aesthetic", text: "Vray Render Aesthetic" }, { value: "Sharp focus (tack sharp)", text: "Sharp Focus (Tack sharp)" }, { value: "Soft focus (dreamy)", text: "Soft Focus (Dreamy, slightly blurred)" }, { value: "Visible brushstrokes (painterly)", text: "Visible Brushstrokes (Painterly)" }, { value: "Highly polished", text: "Highly Polished" }, { value: "Rough and weathered", text: "Rough and Weathered" }, { value: "Glossy reflections", text: "Glossy Reflections" }, { value: "Matte finish", text: "Matte Finish" }, { value: "Embroidered details", text: "Embroidered Details" }, { value: "Metallic sheen", text: "Metallic Sheen" }, { value: "Translucent materials", text: "Translucent Materials" }, { value: "Iridescent shimmer", text: "Iridescent Shimmer" }, { value: "Velvet texture", text: "Velvet Texture" }, { value: "Crystalline structure", text: "Crystalline Structure" } ];
+        const colorPaletteOptionsData = [
+            { value: "", text: "-- Select Color Palette/Concept --" }, { value: "Monochromatic (specify color, e.g., blues)", text: "Monochromatic (e.g., blues, grays)" }, { value: "Analogous Colors (harmonious, adjacent on wheel)", text: "Analogous Colors (Harmonious)" }, { value: "Complementary Colors (high contrast, opposite on wheel)", text: "Complementary Colors (High Contrast)" }, { value: "Triadic Colors (vibrant, evenly spaced on wheel)", text: "Triadic Colors (Vibrant)" }, { value: "Split-Complementary Colors", text: "Split-Complementary Colors" }, { value: "Tetradic Colors (rich, rectangular on wheel)", text: "Tetradic Colors (Rich, Complex)" }, { value: "Vibrant Jewel Tones", text: "Vibrant Jewel Tones (Sapphire, Ruby, Emerald)" }, { value: "Earthy Tones (browns, greens, ochres)", text: "Earthy Tones (Browns, Greens, Ochres)" }, { value: "Pastel Colors (soft, desaturated)", text: "Pastel Colors (Soft, Desaturated)" }, { value: "Neon Colors (bright, fluorescent)", text: "Neon Colors (Bright, Fluorescent)" }, { value: "Desaturated and Moody Palette", text: "Desaturated and Moody Palette" }, { value: "Warm Color Palette (reds, oranges, yellows)", text: "Warm Color Palette (Reds, Oranges, Yellows)" }, { value: "Cool Color Palette (blues, greens, purples)", text: "Cool Color Palette (Blues, Greens, Purples)" }, { value: "Sepia Tone (vintage brown monochrome)", text: "Sepia Tone (Vintage Brown)" }, { value: "Grayscale (black, white, shades of gray)", text: "Grayscale (Black & White)" }, { value: "Duotone (specify two colors)", text: "Duotone (e.g., Black and Gold)" }, { value: "High Contrast Black and White", text: "High Contrast Black and White" }, { value: "Synthwave Palette (pinks, purples, teals)", text: "Synthwave Palette (Pinks, Purples, Teals)" }, { value: "Autumnal Colors (oranges, reds, browns, yellows)", text: "Autumnal Colors" }, { value: "Springtime Colors (light greens, pinks, yellows)", text: "Springtime Colors" }, { value: "Iridescent Palette (shifting rainbow colors)", text: "Iridescent Palette" } ];
+
+        // --- Helper Functions ---
+        function populateDropdown(selectElement, optionsArray) { selectElement.innerHTML = ''; optionsArray.forEach(optionData => { const option = document.createElement('option'); option.value = optionData.value; option.textContent = optionData.text; selectElement.appendChild(option); }); }
+        function renderSelectedItems(container, itemsArray, onRemoveCallback) { container.innerHTML = ''; itemsArray.forEach(itemValue => { const tag = document.createElement('span'); tag.className = 'selected-item-tag'; tag.textContent = itemValue; const removeBtn = document.createElement('button'); removeBtn.className = 'remove-item-btn'; removeBtn.innerHTML = '×'; removeBtn.type = 'button'; removeBtn.onclick = () => { onRemoveCallback(itemValue); }; tag.appendChild(removeBtn); container.appendChild(tag); }); }
+        function addItem(selectElement, itemsArray, container, onRemoveCallback) { const value = selectElement.value; if (value && !itemsArray.includes(value)) { itemsArray.push(value); renderSelectedItems(container, itemsArray, onRemoveCallback); generatePrompt(); } selectElement.value = ""; }
+        function removeItem(valueToRemove, itemsArray, container, onRemoveCallback) { const index = itemsArray.indexOf(valueToRemove); if (index > -1) { itemsArray.splice(index, 1); renderSelectedItems(container, itemsArray, onRemoveCallback); generatePrompt(); } }
+
+        const removeOverallStyle = (value) => removeItem(value, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle);
+        const removeDetailTexture = (value) => removeItem(value, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture);
+        const removeColorPalette = (value) => removeItem(value, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette);
+        const removeSecretKeyword = (value) => removeItem(value, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword);
+
+        // --- Event Listeners ---
+        [primarySubjectInput, imageUrlInput, dominantMoodsInput, filmStockInput, includeMetaHintsCheckbox,
+         primaryLightSourceSelect, environmentBackdropTextarea, shotTypeSelect, artisticElementsInput,
+         customColorPaletteInput, targetPlatformSelect, lightingQualitySelect].forEach(el => {
+            el.addEventListener('input', generatePrompt);
+            if (el.tagName === 'SELECT' || el.type === 'checkbox') {
+                 el.addEventListener('change', generatePrompt);
+            }
+        });
+
+        addOverallStyleButton.addEventListener('click', () => addItem(overallStyleSingleSelect, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle));
+        addDetailTextureButton.addEventListener('click', () => addItem(detailTextureSingleSelect, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture));
+        addColorPaletteButton.addEventListener('click', () => addItem(colorPaletteSingleSelect, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette));
+        addSecretKeywordButton.addEventListener('click', () => addItem(secretKeywordSingleSelect, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword));
+
+        imagingDeviceSelect.addEventListener('change', () => {
+            const selectedDeviceValue = imagingDeviceSelect.value;
+            const compatibility = deviceCompatibility[selectedDeviceValue] || deviceCompatibility[""];
+            populateDropdown(lensSimulationSelect, compatibility.lenses);
+            filmStockInput.placeholder = compatibility.filmStockPlaceholder;
+            lensSimulationSelect.value = "";
+            generatePrompt();
+        });
+
+        resetFormButton.addEventListener('click', () => {
+            promptCraftForm.reset();
+            selectedStylesArray.length = 0;
+            selectedDetailTexturesArray.length = 0;
+            selectedColorPalettesArray.length = 0;
+            selectedKeywordsArray.length = 0;
+            renderSelectedItems(selectedOverallStylesContainer, selectedStylesArray, removeOverallStyle);
+            renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
+            renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
+            renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
+            const initialDeviceCompat = deviceCompatibility[imagingDeviceSelect.value] || deviceCompatibility[""];
+            populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
+            filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
+            lensSimulationSelect.value = "";
+            csvOutputArea.style.display = 'none';
+            csvOutputArea.value = '';
+            copyNotification.style.display = 'none';
+            generatePrompt();
+        });
+
+        exportCsvButton.addEventListener('click', () => {
+            const timestamp = new Date().toISOString();
+            const promptText = livePreview.value.split('\n\n(Consider platform-specifics for')[0].trim().replace(/"/g, '""');
+            const imgUrl = imageUrlInput.value.trim().replace(/"/g, '""');
+            const csvRow = `"${timestamp}","${promptText}","${imgUrl}"`;
+            csvOutputArea.value = "Timestamp,Prompt,ImageURL\n" + csvRow;
+            csvOutputArea.style.display = 'block';
+            csvOutputArea.select();
+            try { document.execCommand('copy'); showUiNotification("CSV row copied to clipboard! Paste into your spreadsheet."); }
+            catch (err) { showUiNotification("CSV data ready in the box below. Please copy manually."); }
+        });
+
+        saveToSheetButton.addEventListener('click', async () => {
+            const webAppUrl = GOOGLE_SHEET_WEB_APP_URL; // Using hardcoded URL
+
+            const promptText = livePreview.value.split('\n\n(Consider platform-specifics for')[0].trim();
+            const imgUrl = imageUrlInput.value.trim();
+
+            if (!promptText && !imgUrl) {
+                 showUiNotification("Nothing to save (no prompt or image URL).", true);
+                 return;
+            }
+
+            const payload = {
+                timestamp: new Date().toISOString(),
+                prompt: promptText,
+                imageUrl: imgUrl
+            };
+
+            showUiNotification("Saving to Google Sheet...", false, true);
+
+            try {
+                const response = await fetch(webAppUrl, {
+                    method: 'POST',
+                    mode: 'cors', // Still needed
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json', // Apps Script doPost expects this if parsing e.postData.contents as JSON
+                    },
+                     // To send data as x-www-form-urlencoded which Apps Script handles by default in e.parameter
+                    // body: new URLSearchParams(payload).toString()
+                    // OR if your Apps Script is set to parse JSON from e.postData.contents:
+                    body: JSON.stringify(payload)
+                });
+
+                // Check if the response is OK (status 200-299)
+                if (response.ok) {
+                    const result = await response.json(); // Assuming Apps Script returns JSON
+                    if (result.status === "success") {
+                        showUiNotification("Successfully saved to Google Sheet!");
+                    } else {
+                        console.error("Google Sheet save error response:", result);
+                        showUiNotification(`Error saving: ${result.message || 'Unknown error from Apps Script.'}`, true);
+                    }
+                } else {
+                    // Handle non-OK responses (e.g., 302 redirect if Apps Script isn't set for anonymous or has auth issues)
+                    console.error("Google Sheet save HTTP error:", response.status, response.statusText);
+                    // If it's a redirect, it often means authentication failed or script access is wrong
+                    if (response.status === 302 || response.type === 'opaque' || response.redirected) {
+                         showUiNotification("Save failed. Possible redirect or auth issue. Check Apps Script deployment (set 'Who has access' to 'Anyone' or 'Anyone, even anonymous' and ensure 'Execute as' is 'Me').", true);
+                    } else {
+                        showUiNotification(`HTTP error ${response.status}: ${response.statusText}. Check console.`, true);
+                    }
+                }
+            } catch (error) {
+                console.error("Error sending data to Google Sheet (fetch failed):", error);
+                showUiNotification("Fetch error. Check console, Web App URL, and network. Ensure Apps Script is deployed correctly.", true);
+            }
+        });
+
+        // --- Prompt Generation Logic ---
+        function generatePrompt() {
+            let promptSegments = [];
+            const addSegment = (text) => { if (text && text.trim() !== "") { let pText = text.trim(); pText = pText.charAt(0).toUpperCase() + pText.slice(1); if (!pText.endsWith('.') && !pText.endsWith('!') && !pText.endsWith('?')) pText += "."; promptSegments.push(pText); } };
+            const naturalJoin = (arr, conj = 'and') => { if (!arr || arr.length === 0) return ""; if (arr.length === 1) return arr[0]; const allButLast = arr.slice(0, -1); const last = arr.slice(-1)[0]; return allButLast.join(', ') + ` ${conj} ` + last; };
+            const subject = primarySubjectInput.value.trim(); if (!subject) { livePreview.value = "Please enter a primary subject..."; return; }
+            let foundationSentence = `A depiction of ${subject}`; if (selectedStylesArray.length > 0) foundationSentence += `, crafted in a style that embodies ${naturalJoin(selectedStylesArray)}`; const moods = dominantMoodsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (moods.length > 0) foundationSentence += `, evoking dominant moods of ${naturalJoin(moods)}`; addSegment(foundationSentence);
+            const device = imagingDeviceSelect.value; const lens = lensSimulationSelect.value; const film = filmStockInput.value.trim(); const metaHints = includeMetaHintsCheckbox.checked; let cameraDetails = []; if (device) cameraDetails.push(`captured as if through a ${device}`); if (lens) cameraDetails.push(`utilizing a ${lens}`); if (film) cameraDetails.push(`with the aesthetic qualities reminiscent of ${film}`); if (cameraDetails.length > 0) addSegment(`The visual narrative is ${naturalJoin(cameraDetails)}`); if (metaHints) { let mhTxt = "The image should possess the depth and clarity of a high-resolution RAW file"; if (device.toLowerCase().includes("dslr")) mhTxt += ", similar to an IMG_xxxx.CR2 capture"; else if (device.toLowerCase().includes("cinema")) mhTxt += ", as if sourced from a .R3D cinematic sequence"; else if (device.toLowerCase().includes("leica")) mhTxt += ", having the distinct look of an unarchived .DNG file"; else if (device.toLowerCase().includes("hasselblad")) mhTxt += ", akin to a medium or large format scan"; else if (device) mhTxt += `, befitting a professional capture from such a device`; else mhTxt += ", suggesting professional digital capture"; addSegment(mhTxt); }
+            const lightSource = primaryLightSourceSelect.value; const lightQuality = lightingQualitySelect.value; let lightingDesc = []; if (lightSource) lightingDesc.push(`illuminated primarily by ${lightSource}`); if (lightQuality) lightingDesc.push(`characterized by ${lightQuality}`); if (lightingDesc.length > 0) addSegment(`The scene is ${naturalJoin(lightingDesc)}`);
+            const environment = environmentBackdropTextarea.value.trim(); const shot = shotTypeSelect.value; const artistInsp = artisticElementsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (environment) addSegment(`The setting is ${environment}`); let compDesc = []; if (shot) compDesc.push(`composed with a ${shot}`); if (artistInsp.length > 0) compDesc.push(`drawing inspiration from ${naturalJoin(artistInsp)}`); if (compDesc.length > 0) addSegment(`Framing and artistic direction should be ${naturalJoin(compDesc)}`);
+            const customColors = customColorPaletteInput.value.trim(); let allColors = [...selectedColorPalettesArray]; if (customColors) allColors.push(customColors); let flairElements = []; if (selectedDetailTexturesArray.length > 0) flairElements.push(`showcasing ${naturalJoin(selectedDetailTexturesArray)}`); if (allColors.length > 0) flairElements.push(`utilizing a color palette of ${naturalJoin(allColors)}`); if (selectedKeywordsArray.length > 0) flairElements.push(`subtly incorporating ${naturalJoin(selectedKeywordsArray)} for added depth and uniqueness`); if (flairElements.length > 0) addSegment(`Artistic flair is enhanced by ${naturalJoin(flairElements)}`);
+            const platform = targetPlatformSelect.value; let platformNote = ""; if (platform) { const pText = targetPlatformSelect.options[targetPlatformSelect.selectedIndex].text; platformNote = `\n\n(Consider platform-specifics for ${pText} e.g., aspect ratios, negative prompts, or parameter syntax.)`;}
+            livePreview.value = promptSegments.join(' ').replace(/\s+/g, ' ').trim() + platformNote;
+        }
+
+        function showUiNotification(message, isError = false, isPending = false) {
+            copyNotification.textContent = message;
+            if (isPending) {
+                copyNotification.style.backgroundColor = '#fff3cd';
+                copyNotification.style.color = '#856404';
+                copyNotification.style.borderColor = '#ffeeba';
+            } else if (isError) {
+                copyNotification.style.backgroundColor = '#f8d7da';
+                copyNotification.style.color = '#721c24';
+                copyNotification.style.borderColor = '#f5c6cb';
+            } else {
+                copyNotification.style.backgroundColor = '#d4edda';
+                copyNotification.style.color = '#155724';
+                copyNotification.style.borderColor = '#c3e6cb';
+            }
+            copyNotification.style.display = 'block';
+            if (!isPending) {
+                setTimeout(() => { copyNotification.style.display = 'none'; }, 3500);
+            }
+        }
+
+        copyPromptButton.addEventListener('click', () => {
+            let originalText = livePreview.value; let textToCopy = originalText; const platformNoteIndex = originalText.indexOf("\n\n(Consider platform-specifics for"); if (platformNoteIndex !== -1) textToCopy = originalText.substring(0, platformNoteIndex);
+            navigator.clipboard.writeText(textToCopy).then(() => { showUiNotification('Prompt copied to clipboard!'); }).catch(err => { console.error('Failed to copy prompt: ', err); try { const tempTextArea = document.createElement('textarea'); tempTextArea.value = textToCopy; document.body.appendChild(tempTextArea); tempTextArea.select(); document.execCommand('copy'); document.body.removeChild(tempTextArea); showUiNotification('Prompt copied (fallback)!'); } catch (execCommandErr) { showUiNotification('Copy failed. Please copy manually.', true); } });
+        });
+
+        // --- Initial Setup ---
+        populateDropdown(lightingQualitySelect, lightingQualityOptions);
+        populateDropdown(detailTextureSingleSelect, detailTextureOptionsData);
+        populateDropdown(colorPaletteSingleSelect, colorPaletteOptionsData);
+        const initialDeviceCompat = deviceCompatibility[imagingDeviceSelect.value] || deviceCompatibility[""];
+        populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
+        filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
+        renderSelectedItems(selectedOverallStylesContainer, selectedStylesArray, removeOverallStyle);
+        renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
+        renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
+        renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
+        // No need to load googleSheetWebAppUrlInput.value from localStorage if hardcoded
+        generatePrompt();
+    });
+    </script>
+</body>
+</html>
