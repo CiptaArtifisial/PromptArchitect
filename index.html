@@ -10,33 +10,33 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: #1a1a1a; /* Dark background */
+            color: #e0e0e0; /* Light text */
         }
 
         .container {
-            max-width: 950px; 
+            max-width: 950px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #2a2a2a; /* Slightly lighter dark for container */
             padding: 20px 30px;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
         }
 
         header {
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #444; /* Darker border */
             padding-bottom: 20px;
         }
 
         header h1 {
-            color: #2c3e50;
+            color: #ffffff; /* White heading */
             margin-bottom: 5px;
         }
 
         header p {
-            color: #7f8c8d;
+            color: #b0b0b0; /* Lighter gray subtitle */
             font-size: 1.1em;
         }
 
@@ -48,22 +48,22 @@
 
         /* Accordion Styles */
         .accordion-item {
-            border: 1px solid #ddd;
+            border: 1px solid #444; /* Darker border */
             border-radius: 5px;
             margin-bottom: 10px;
-            background-color: #fff;
+            background-color: #3a3a3a; /* Darker background */
         }
 
         .accordion-item summary {
             padding: 15px;
             font-weight: bold;
             cursor: pointer;
-            background-color: #e9ecef;
-            color: #343a40;
-            border-bottom: 1px solid #ddd;
+            background-color: #4a4a4a; /* Even darker background for summary */
+            color: #eeeeee; /* Lighter text */
+            border-bottom: 1px solid #444; /* Darker border */
             list-style-position: inside;
             position: relative;
-            padding-left: 40px; 
+            padding-left: 40px;
         }
 
         .accordion-item summary::-webkit-details-marker,
@@ -83,6 +83,7 @@
             content: '−';
         }
 
+        /* Keep default blue for 'open' state for contrast */
         .accordion-item[open] summary {
             background-color: #007bff;
             color: white;
@@ -91,7 +92,7 @@
 
         .accordion-content {
             padding: 20px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #444; /* Darker border */
         }
         .accordion-item[open] .accordion-content {
             animation: fadeIn 0.5s ease-in-out;
@@ -101,18 +102,9 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        .settings-section { /* For Google Sheet URL */
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #eee;
-            border-radius: 5px;
-        }
-
 
         fieldset {
-            border: 1px solid #ced4da;
+            border: 1px solid #555; /* Darker border */
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 4px;
@@ -120,7 +112,7 @@
 
         legend {
             font-weight: bold;
-            color: #495057;
+            color: #cccccc; /* Lighter legend color */
             padding: 0 5px;
         }
 
@@ -132,7 +124,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #495057;
+            color: #cccccc; /* Lighter label color */
         }
 
         .form-group input[type="text"],
@@ -141,11 +133,12 @@
         .form-group select {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ced4da;
+            border: 1px solid #555; /* Darker border */
             border-radius: 4px;
             box-sizing: border-box;
             font-size: 1em;
-            background-color: #fff; 
+            background-color: #3a3a3a; /* Match accordion content background */
+            color: #eeeeee; /* Light text */
         }
         .form-group input[type="text"]:focus,
         .form-group input[type="url"]:focus,
@@ -155,6 +148,12 @@
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
             outline: none;
         }
+        /* Placeholder color for dark mode */
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #a0a0a0;
+            opacity: 1; /* Firefox opacity fix */
+        }
 
         .form-group input[type="checkbox"] {
             margin-right: 8px;
@@ -163,22 +162,23 @@
         .form-group input[type="checkbox"] + label {
             display: inline;
             font-weight: normal;
+            color: #e0e0e0; /* Match body text color */
         }
 
         .form-group small {
             display: block;
             margin-top: 5px;
-            color: #6c757d;
+            color: #a0a0a0; /* Lighter gray small text */
             font-size: 0.9em;
         }
 
         .architect-tip {
-            background-color: #eef7ff;
-            border-left: 3px solid #007bff;
+            background-color: #304050; /* Darker blueish background */
+            border-left: 3px solid #007bff; /* Keep the blue border */
             padding: 8px 12px;
             margin-top: 8px;
             font-style: italic;
-            color: #004085;
+            color: #a0c0ff; /* Lighter blue text */
             border-radius: 0 4px 4px 0;
         }
 
@@ -193,13 +193,14 @@
         }
         .dynamic-select-group button {
             padding: 10px 15px;
-            background-color: #007bff;
+            background-color: #007bff; /* Keep blue for Add buttons */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
-            flex-shrink: 0; 
+            flex-shrink: 0;
+            transition: background-color 0.2s; /* Added transition */
         }
         .dynamic-select-group button:hover {
             background-color: #0056b3;
@@ -210,16 +211,16 @@
             gap: 8px;
             margin-top: 10px;
             padding: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #555; /* Darker border */
             border-radius: 4px;
-            min-height: 30px; 
-            background-color: #f8f9fa;
+            min-height: 30px;
+            background-color: #303030; /* Darker background */
         }
         .selected-item-tag {
-            background-color: #007bff;
+            background-color: #007bff; /* Keep blue for tags */
             color: white;
             padding: 5px 10px;
-            border-radius: 15px; 
+            border-radius: 15px;
             font-size: 0.9em;
             display: flex;
             align-items: center;
@@ -228,7 +229,7 @@
         .remove-item-btn {
             background: none;
             border: none;
-            color: white;
+            color: white; /* Keep white */
             font-weight: bold;
             cursor: pointer;
             padding: 0 3px;
@@ -236,92 +237,111 @@
             line-height: 1;
         }
         .remove-item-btn:hover {
-            color: #ffdddd;
+            color: #ffdddd; /* Lighter red hover */
         }
 
         .live-preview-section {
             margin-top: 20px;
             padding: 20px;
-            background-color: #f8f9fa;
+            background-color: #303030; /* Match selected items container background */
             border-radius: 5px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #555; /* Darker border */
         }
 
         .live-preview-section h2 {
             margin-top: 0;
-            color: #343a40;
+            color: #eeeeee; /* Lighter heading color */
         }
 
         #livePreview {
             width: 100%;
             min-height: 150px;
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 15px; /* Slightly more padding */
+            border: 1px solid #555; /* Darker border */
             border-radius: 4px;
-            background-color: #fff;
+            background-color: #202020; /* Even darker background for text area */
+            color: #b0b0b0; /* Light gray text */
             font-family: "Courier New", Courier, monospace;
             font-size: 0.95em;
-            line-height: 1.5;
+            line-height: 1.6; /* Slightly more line height */
             box-sizing: border-box;
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Slightly more margin */
+            resize: vertical; /* Allow vertical resize */
         }
 
         .action-buttons {
             display: flex;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
             gap: 10px;
             align-items: center;
-            margin-bottom: 10px; 
+            margin-bottom: 10px;
         }
 
-        #copyPromptButton, #resetFormButton, #exportCsvButton, #saveToSheetButton { 
+        #copyPromptButton, #resetFormButton, #exportCsvButton {
             color: white;
-            padding: 10px 15px; 
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.2s;
-            flex-grow: 1; 
-            min-width: 120px; 
+            flex-grow: 1;
+            min-width: 120px;
         }
-        #copyPromptButton { background-color: #28a745; }
+        /* Keep button colors for functionality clarity, adjust slightly for dark mode */
+        #copyPromptButton { background-color: #28a745; } /* Green */
         #copyPromptButton:hover { background-color: #218838; }
 
-        #resetFormButton { background-color: #dc3545; }
+        #resetFormButton { background-color: #dc3545; } /* Red */
         #resetFormButton:hover { background-color: #c82333; }
 
-        #exportCsvButton { background-color: #17a2b8; } 
+        #exportCsvButton { background-color: #17a2b8; } /* Cyan/Teal */
         #exportCsvButton:hover { background-color: #138496; }
 
-        #saveToSheetButton { background-color: #ffc107; color: #212529; } /* Warning yellow */
-        #saveToSheetButton:hover { background-color: #e0a800; }
 
-
-        .copy-notification { /* Reused for other notifications too */
+        .notification { /* Renamed for general use */
             display: none;
-            margin-left: 10px; 
-            padding: 8px 12px;
-            border: 1px solid #c3e6cb;
+            margin-left: 10px;
+            padding: 10px 15px; /* More padding */
             border-radius: 4px;
             font-size: 0.9em;
-            flex-basis: 100%; 
-            margin-top: 5px;
+            flex-basis: 100%;
+            margin-top: 10px; /* More margin */
+            box-sizing: border-box; /* Include padding in width */
         }
-        
-        #csvOutputArea { 
+        /* Notification colors for dark mode */
+        .notification.success {
+            background-color: #283d2e; /* Darker green */
+            color: #a3c6a8; /* Lighter green text */
+            border: 1px solid #385e44;
+        }
+         .notification.error {
+            background-color: #4e2d30; /* Darker red */
+            color: #d69d9f; /* Lighter red text */
+            border: 1px solid #6c4449;
+        }
+         .notification.pending {
+            background-color: #4a3d2d; /* Darker yellow/brown */
+            color: #d3b09b; /* Lighter yellow text */
+            border: 1px solid #66533f;
+        }
+
+
+        #csvOutputArea {
             width: 100%;
             min-height: 60px;
-            padding: 10px;
-            border: 1px dashed #007bff;
+            padding: 15px; /* More padding */
+            border: 1px dashed #007bff; /* Keep blue dashed border for visual cue */
             border-radius: 4px;
-            background-color: #eef7ff;
+            background-color: #303840; /* Dark blueish background */
+            color: #b0b0b0; /* Light gray text */
             font-family: "Courier New", Courier, monospace;
             font-size: 0.9em;
             line-height: 1.5;
             box-sizing: border-box;
-            margin-top: 10px;
-            display: none; 
+            margin-top: 15px; /* More margin */
+            display: none;
+            resize: vertical; /* Allow vertical resize */
         }
 
 
@@ -329,12 +349,13 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #7f8c8d;
+            border-top: 1px solid #444; /* Darker border */
+            color: #b0b0b0; /* Lighter gray footer text */
             font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
+            body { padding: 10px; } /* Reduce padding on small screens */
             .container { padding: 15px; }
             .dynamic-select-group { flex-direction: column; align-items: stretch; }
             .dynamic-select-group select, .dynamic-select-group button { width: 100%; }
@@ -342,7 +363,7 @@
             .accordion-item summary::before { left: 10px; }
             .action-buttons { flex-direction: column; align-items: stretch; }
             .action-buttons button { width: 100%; }
-            .copy-notification { margin-left: 0; margin-top: 10px; }
+            .notification { margin-left: 0; margin-top: 10px; }
         }
     </style>
 </head>
@@ -364,11 +385,7 @@
                             <label for="primarySubject">Primary Subject/Concept:</label>
                             <input type="text" id="primarySubject" placeholder="e.g., A majestic griffin, an abandoned spaceship">
                         </div>
-                        <div class="form-group">
-                            <label for="imageUrl">Result Image URL (for database):</label>
-                            <input type="url" id="imageUrl" placeholder="https://example.com/path/to/your/image.jpg">
-                            <small>After generating the image, paste its URL here to save it with the prompt.</small>
-                        </div>
+                        <!-- Result Image URL field removed as requested -->
                         <div class="form-group">
                             <label for="overallStyleSingle">Overall Style(s):</label>
                             <div class="dynamic-select-group">
@@ -660,8 +677,6 @@
                     </div>
                 </details>
 
-                 <!-- Settings Section for Google Apps Script URL -->
-              
             </div> <!-- .sections -->
 
             <div class="live-preview-section">
@@ -669,10 +684,10 @@
                 <textarea id="livePreview" rows="10" readonly placeholder="Your detailed prompt will appear here as you make selections..."></textarea>
                 <div class="action-buttons">
                     <button type="button" id="copyPromptButton">Copy Prompt</button>
-                    <button type="button" id="saveToSheetButton">Save to Google Sheet</button>
+                    <!-- Save to Google Sheet button removed as requested -->
                     <button type="button" id="exportCsvButton">Export for Database (CSV)</button>
                     <button type="button" id="resetFormButton">Reset All</button>
-                    <div id="copyNotification" class="copy-notification"></div> 
+                    <div id="uiNotification" class="notification"></div> <!-- Renamed and styled for general use -->
                 </div>
                 <textarea id="csvOutputArea" readonly placeholder="CSV data for your database will appear here..."></textarea>
             </div>
@@ -692,13 +707,13 @@
         const copyPromptButton = document.getElementById('copyPromptButton');
         const resetFormButton = document.getElementById('resetFormButton');
         const exportCsvButton = document.getElementById('exportCsvButton');
-        const saveToSheetButton = document.getElementById('saveToSheetButton');
-        // const googleSheetWebAppUrlInput = document.getElementById('googleSheetWebAppUrl'); // No longer needed if hardcoded
+        // saveToSheetButton removed
+        // googleSheetWebAppUrlInput removed
         const csvOutputArea = document.getElementById('csvOutputArea');
-        const copyNotification = document.getElementById('copyNotification');
+        const uiNotification = document.getElementById('uiNotification'); // Renamed
 
         const primarySubjectInput = document.getElementById('primarySubject');
-        const imageUrlInput = document.getElementById('imageUrl');
+        // imageUrlInput removed
         const dominantMoodsInput = document.getElementById('dominantMoods');
         const imagingDeviceSelect = document.getElementById('imagingDevice');
         const lensSimulationSelect = document.getElementById('lensSimulation');
@@ -728,8 +743,7 @@
         const addSecretKeywordButton = document.getElementById('addSecretKeywordButton');
         const selectedSecretKeywordsContainer = document.getElementById('selectedSecretKeywordsContainer');
 
-        // --- Hardcoded Google Apps Script Web App URL ---
-        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz9_Zfv67TZodpoFByc4wF6ME2H5mKmDzWfOLejc9kMGdwNoBqpA7EM9nAn-0QRgUZJ/exec";
+        // GOOGLE_SHEET_WEB_APP_URL removed
 
         // --- Data Structures ---
         let selectedStylesArray = [];
@@ -772,7 +786,7 @@
         const removeSecretKeyword = (value) => removeItem(value, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword);
 
         // --- Event Listeners ---
-        [primarySubjectInput, imageUrlInput, dominantMoodsInput, filmStockInput, includeMetaHintsCheckbox,
+        [primarySubjectInput, dominantMoodsInput, filmStockInput, includeMetaHintsCheckbox,
          primaryLightSourceSelect, environmentBackdropTextarea, shotTypeSelect, artisticElementsInput,
          customColorPaletteInput, targetPlatformSelect, lightingQualitySelect].forEach(el => {
             el.addEventListener('input', generatePrompt);
@@ -811,119 +825,108 @@
             lensSimulationSelect.value = "";
             csvOutputArea.style.display = 'none';
             csvOutputArea.value = '';
-            copyNotification.style.display = 'none';
+            hideUiNotification(); // Hide notification on reset
             generatePrompt();
         });
 
         exportCsvButton.addEventListener('click', () => {
             const timestamp = new Date().toISOString();
+            // Remove platform note from prompt for CSV
             const promptText = livePreview.value.split('\n\n(Consider platform-specifics for')[0].trim().replace(/"/g, '""');
-            const imgUrl = imageUrlInput.value.trim().replace(/"/g, '""');
-            const csvRow = `"${timestamp}","${promptText}","${imgUrl}"`;
-            csvOutputArea.value = "Timestamp,Prompt,ImageURL\n" + csvRow;
-            csvOutputArea.style.display = 'block';
-            csvOutputArea.select();
-            try { document.execCommand('copy'); showUiNotification("CSV row copied to clipboard! Paste into your spreadsheet."); }
-            catch (err) { showUiNotification("CSV data ready in the box below. Please copy manually."); }
-        });
 
-        saveToSheetButton.addEventListener('click', async () => {
-            const webAppUrl = GOOGLE_SHEET_WEB_APP_URL; // Using hardcoded URL
-
-            const promptText = livePreview.value.split('\n\n(Consider platform-specifics for')[0].trim();
-            const imgUrl = imageUrlInput.value.trim();
-
-            if (!promptText && !imgUrl) {
-                 showUiNotification("Nothing to save (no prompt or image URL).", true);
+            // Check if there is a prompt before exporting
+            if (!promptText) {
+                 showUiNotification("Cannot export empty prompt.", 'error');
+                 csvOutputArea.style.display = 'none';
                  return;
             }
 
-            const payload = {
-                timestamp: new Date().toISOString(),
-                prompt: promptText,
-                imageUrl: imgUrl
-            };
-
-            showUiNotification("Saving to Google Sheet...", false, true);
-
-            try {
-                const response = await fetch(webAppUrl, {
-                    method: 'POST',
-                    mode: 'cors', // Still needed
-                    cache: 'no-cache',
-                    headers: {
-                        'Content-Type': 'application/json', // Apps Script doPost expects this if parsing e.postData.contents as JSON
-                    },
-                     // To send data as x-www-form-urlencoded which Apps Script handles by default in e.parameter
-                    // body: new URLSearchParams(payload).toString()
-                    // OR if your Apps Script is set to parse JSON from e.postData.contents:
-                    body: JSON.stringify(payload)
-                });
-
-                // Check if the response is OK (status 200-299)
-                if (response.ok) {
-                    const result = await response.json(); // Assuming Apps Script returns JSON
-                    if (result.status === "success") {
-                        showUiNotification("Successfully saved to Google Sheet!");
-                    } else {
-                        console.error("Google Sheet save error response:", result);
-                        showUiNotification(`Error saving: ${result.message || 'Unknown error from Apps Script.'}`, true);
-                    }
-                } else {
-                    // Handle non-OK responses (e.g., 302 redirect if Apps Script isn't set for anonymous or has auth issues)
-                    console.error("Google Sheet save HTTP error:", response.status, response.statusText);
-                    // If it's a redirect, it often means authentication failed or script access is wrong
-                    if (response.status === 302 || response.type === 'opaque' || response.redirected) {
-                         showUiNotification("Save failed. Possible redirect or auth issue. Check Apps Script deployment (set 'Who has access' to 'Anyone' or 'Anyone, even anonymous' and ensure 'Execute as' is 'Me').", true);
-                    } else {
-                        showUiNotification(`HTTP error ${response.status}: ${response.statusText}. Check console.`, true);
-                    }
-                }
-            } catch (error) {
-                console.error("Error sending data to Google Sheet (fetch failed):", error);
-                showUiNotification("Fetch error. Check console, Web App URL, and network. Ensure Apps Script is deployed correctly.", true);
-            }
+            const csvRow = `"${timestamp}","${promptText}"`; // Only timestamp and prompt
+            csvOutputArea.value = "Timestamp,Prompt\n" + csvRow; // Update header
+            csvOutputArea.style.display = 'block';
+            csvOutputArea.select();
+            try { document.execCommand('copy'); showUiNotification("CSV row copied to clipboard! Paste into your spreadsheet.", 'success'); }
+            catch (err) { showUiNotification("CSV data ready in the box below. Please copy manually.", 'pending'); } // Use pending style for manual copy instruction
         });
+
+        // saveToSheetButton event listener removed
 
         // --- Prompt Generation Logic ---
         function generatePrompt() {
             let promptSegments = [];
-            const addSegment = (text) => { if (text && text.trim() !== "") { let pText = text.trim(); pText = pText.charAt(0).toUpperCase() + pText.slice(1); if (!pText.endsWith('.') && !pText.endsWith('!') && !pText.endsWith('?')) pText += "."; promptSegments.push(pText); } };
+            const addSegment = (text) => { if (text && text.trim() !== "") { let pText = text.trim(); // Capitalize first letter only if it's a letter
+                 if (pText.length > 0 && pText.match(/^[a-zA-Z]/)) {
+                     pText = pText.charAt(0).toUpperCase() + pText.slice(1);
+                 }
+                 // Add a period only if it doesn't end with common punctuation
+                 if (!pText.endsWith('.') && !pText.endsWith('!') && !pText.endsWith('?') && !pText.endsWith(',')) { // Also check for comma for flow
+                     pText += ".";
+                 } else if (pText.endsWith(',')) { // Replace trailing comma with period
+                     pText = pText.slice(0, -1) + ".";
+                 }
+                 promptSegments.push(pText); } };
             const naturalJoin = (arr, conj = 'and') => { if (!arr || arr.length === 0) return ""; if (arr.length === 1) return arr[0]; const allButLast = arr.slice(0, -1); const last = arr.slice(-1)[0]; return allButLast.join(', ') + ` ${conj} ` + last; };
             const subject = primarySubjectInput.value.trim(); if (!subject) { livePreview.value = "Please enter a primary subject..."; return; }
             let foundationSentence = `A depiction of ${subject}`; if (selectedStylesArray.length > 0) foundationSentence += `, crafted in a style that embodies ${naturalJoin(selectedStylesArray)}`; const moods = dominantMoodsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (moods.length > 0) foundationSentence += `, evoking dominant moods of ${naturalJoin(moods)}`; addSegment(foundationSentence);
             const device = imagingDeviceSelect.value; const lens = lensSimulationSelect.value; const film = filmStockInput.value.trim(); const metaHints = includeMetaHintsCheckbox.checked; let cameraDetails = []; if (device) cameraDetails.push(`captured as if through a ${device}`); if (lens) cameraDetails.push(`utilizing a ${lens}`); if (film) cameraDetails.push(`with the aesthetic qualities reminiscent of ${film}`); if (cameraDetails.length > 0) addSegment(`The visual narrative is ${naturalJoin(cameraDetails)}`); if (metaHints) { let mhTxt = "The image should possess the depth and clarity of a high-resolution RAW file"; if (device.toLowerCase().includes("dslr")) mhTxt += ", similar to an IMG_xxxx.CR2 capture"; else if (device.toLowerCase().includes("cinema")) mhTxt += ", as if sourced from a .R3D cinematic sequence"; else if (device.toLowerCase().includes("leica")) mhTxt += ", having the distinct look of an unarchived .DNG file"; else if (device.toLowerCase().includes("hasselblad")) mhTxt += ", akin to a medium or large format scan"; else if (device) mhTxt += `, befitting a professional capture from such a device`; else mhTxt += ", suggesting professional digital capture"; addSegment(mhTxt); }
             const lightSource = primaryLightSourceSelect.value; const lightQuality = lightingQualitySelect.value; let lightingDesc = []; if (lightSource) lightingDesc.push(`illuminated primarily by ${lightSource}`); if (lightQuality) lightingDesc.push(`characterized by ${lightQuality}`); if (lightingDesc.length > 0) addSegment(`The scene is ${naturalJoin(lightingDesc)}`);
             const environment = environmentBackdropTextarea.value.trim(); const shot = shotTypeSelect.value; const artistInsp = artisticElementsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (environment) addSegment(`The setting is ${environment}`); let compDesc = []; if (shot) compDesc.push(`composed with a ${shot}`); if (artistInsp.length > 0) compDesc.push(`drawing inspiration from ${naturalJoin(artistInsp)}`); if (compDesc.length > 0) addSegment(`Framing and artistic direction should be ${naturalJoin(compDesc)}`);
-            const customColors = customColorPaletteInput.value.trim(); let allColors = [...selectedColorPalettesArray]; if (customColors) allColors.push(customColors); let flairElements = []; if (selectedDetailTexturesArray.length > 0) flairElements.push(`showcasing ${naturalJoin(selectedDetailTexturesArray)}`); if (allColors.length > 0) flairElements.push(`utilizing a color palette of ${naturalJoin(allColors)}`); if (selectedKeywordsArray.length > 0) flairElements.push(`subtly incorporating ${naturalJoin(selectedKeywordsArray)} for added depth and uniqueness`); if (flairElements.length > 0) addSegment(`Artistic flair is enhanced by ${naturalJoin(flairElements)}`);
+            const customColors = customColorPaletteInput.value.trim(); let allColors = [...selectedColorPalettesArray]; if (customColors) allColors.push(customColors); let flairElements = []; if (selectedDetailTexturesArray.length > 0) flairElements.push(`showcasing ${naturalJoin(selectedDetailTexturesArray)}`); if (allColors.length > 0) flairElements.push(`utilizing a color palette of ${naturalJoin(allColors)}`); if (selectedKeywordsArray.length > 0) flairElements.push(`subtly incorporating ${naturalJoin(selectedKeywordsArray)} for added depth and uniqueness`); if (flairElements.length > 0) addSegment(`Artistic flair is enhanced by ${naturalElements.join(', ')}`); // Fixed variable name here
             const platform = targetPlatformSelect.value; let platformNote = ""; if (platform) { const pText = targetPlatformSelect.options[targetPlatformSelect.selectedIndex].text; platformNote = `\n\n(Consider platform-specifics for ${pText} e.g., aspect ratios, negative prompts, or parameter syntax.)`;}
             livePreview.value = promptSegments.join(' ').replace(/\s+/g, ' ').trim() + platformNote;
         }
 
-        function showUiNotification(message, isError = false, isPending = false) {
-            copyNotification.textContent = message;
-            if (isPending) {
-                copyNotification.style.backgroundColor = '#fff3cd';
-                copyNotification.style.color = '#856404';
-                copyNotification.style.borderColor = '#ffeeba';
-            } else if (isError) {
-                copyNotification.style.backgroundColor = '#f8d7da';
-                copyNotification.style.color = '#721c24';
-                copyNotification.style.borderColor = '#f5c6cb';
-            } else {
-                copyNotification.style.backgroundColor = '#d4edda';
-                copyNotification.style.color = '#155724';
-                copyNotification.style.borderColor = '#c3e6cb';
-            }
-            copyNotification.style.display = 'block';
-            if (!isPending) {
-                setTimeout(() => { copyNotification.style.display = 'none'; }, 3500);
+        // Unified notification function
+        function showUiNotification(message, type = 'success', autoHide = 3500) {
+            uiNotification.textContent = message;
+            uiNotification.className = `notification ${type}`; // Apply base class and type class
+            uiNotification.style.display = 'block';
+
+            if (autoHide > 0) {
+                setTimeout(() => { hideUiNotification(); }, autoHide);
             }
         }
 
+        function hideUiNotification() {
+             uiNotification.style.display = 'none';
+             uiNotification.textContent = '';
+             uiNotification.className = 'notification'; // Reset classes
+        }
+
+
         copyPromptButton.addEventListener('click', () => {
-            let originalText = livePreview.value; let textToCopy = originalText; const platformNoteIndex = originalText.indexOf("\n\n(Consider platform-specifics for"); if (platformNoteIndex !== -1) textToCopy = originalText.substring(0, platformNoteIndex);
-            navigator.clipboard.writeText(textToCopy).then(() => { showUiNotification('Prompt copied to clipboard!'); }).catch(err => { console.error('Failed to copy prompt: ', err); try { const tempTextArea = document.createElement('textarea'); tempTextArea.value = textToCopy; document.body.appendChild(tempTextArea); tempTextArea.select(); document.execCommand('copy'); document.body.removeChild(tempTextArea); showUiNotification('Prompt copied (fallback)!'); } catch (execCommandErr) { showUiNotification('Copy failed. Please copy manually.', true); } });
+            let originalText = livePreview.value;
+            let textToCopy = originalText;
+            const platformNoteIndex = originalText.indexOf("\n\n(Consider platform-specifics for");
+            if (platformNoteIndex !== -1) {
+                textToCopy = originalText.substring(0, platformNoteIndex).trim(); // Trim after removing note
+            }
+
+            if (!textToCopy) {
+                showUiNotification("Nothing to copy.", 'error');
+                return;
+            }
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showUiNotification('Prompt copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Failed to copy prompt: ', err);
+                try {
+                    // Fallback for older browsers or specific environments
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = textToCopy;
+                    tempTextArea.style.position = 'fixed'; // Avoid scrolling to bottom
+                    tempTextArea.style.opacity = '0'; // Hide it
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempTextArea);
+                    showUiNotification('Prompt copied (fallback)!', 'success');
+                } catch (execCommandErr) {
+                    console.error('Fallback copy failed: ', execCommandErr);
+                    showUiNotification('Copy failed. Please copy manually.', 'error', 0); // Don't auto-hide manual copy message
+                }
+            });
         });
 
         // --- Initial Setup ---
@@ -937,7 +940,7 @@
         renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
         renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
         renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
-        // No need to load googleSheetWebAppUrlInput.value from localStorage if hardcoded
+
         generatePrompt();
     });
     </script>
