@@ -119,6 +119,10 @@
         .form-group {
             margin-bottom: 20px;
         }
+        .form-group:last-child {
+            margin-bottom: 0; /* Remove bottom margin from last form group in a container */
+        }
+
 
         .form-group label {
             display: block;
@@ -130,7 +134,8 @@
         .form-group input[type="text"],
         .form-group input[type="url"],
         .form-group textarea,
-        .form-group select {
+        .form-group select,
+        .form-group input[type="number"] { /* Added number type */
             width: 100%;
             padding: 10px;
             border: 1px solid #555; /* Darker border */
@@ -143,7 +148,8 @@
         .form-group input[type="text"]:focus,
         .form-group input[type="url"]:focus,
         .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group input[type="number"]:focus { /* Added number type */
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
             outline: none;
@@ -158,27 +164,55 @@
         .form-group input[type="checkbox"] {
             margin-right: 8px;
             vertical-align: middle;
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1px solid #555;
+            background-color: #3a3a3a;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            top: 2px;
         }
+
+        .form-group input[type="checkbox"]:checked {
+             background-color: #007bff;
+             border-color: #007bff;
+        }
+
+        .form-group input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 1px; /* Adjust for checkmark centering */
+            font-size: 12px;
+            color: white;
+        }
+
         .form-group input[type="checkbox"] + label {
-            display: inline;
+            display: inline-block;
+            margin-bottom: 0;
             font-weight: normal;
-            color: #e0e0e0; /* Match body text color */
+            color: #e0e0e0;
+            vertical-align: middle;
+            cursor: pointer;
         }
 
         .form-group small {
             display: block;
             margin-top: 5px;
-            color: #a0a0a0; /* Lighter gray small text */
+            color: #a0a0a0;
             font-size: 0.9em;
         }
 
         .architect-tip {
-            background-color: #304050; /* Darker blueish background */
-            border-left: 3px solid #007bff; /* Keep the blue border */
+            background-color: #304050;
+            border-left: 3px solid #007bff;
             padding: 8px 12px;
             margin-top: 8px;
             font-style: italic;
-            color: #a0c0ff; /* Lighter blue text */
+            color: #a0c0ff;
             border-radius: 0 4px 4px 0;
         }
 
@@ -193,14 +227,14 @@
         }
         .dynamic-select-group button {
             padding: 10px 15px;
-            background-color: #007bff; /* Keep blue for Add buttons */
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
             flex-shrink: 0;
-            transition: background-color 0.2s; /* Added transition */
+            transition: background-color 0.2s;
         }
         .dynamic-select-group button:hover {
             background-color: #0056b3;
@@ -211,13 +245,13 @@
             gap: 8px;
             margin-top: 10px;
             padding: 8px;
-            border: 1px solid #555; /* Darker border */
+            border: 1px solid #555;
             border-radius: 4px;
             min-height: 30px;
-            background-color: #303030; /* Darker background */
+            background-color: #303030;
         }
         .selected-item-tag {
-            background-color: #007bff; /* Keep blue for tags */
+            background-color: #007bff;
             color: white;
             padding: 5px 10px;
             border-radius: 15px;
@@ -229,7 +263,7 @@
         .remove-item-btn {
             background: none;
             border: none;
-            color: white; /* Keep white */
+            color: white;
             font-weight: bold;
             cursor: pointer;
             padding: 0 3px;
@@ -237,36 +271,100 @@
             line-height: 1;
         }
         .remove-item-btn:hover {
-            color: #ffdddd; /* Lighter red hover */
+            color: #ffdddd;
         }
+
+        #midjourneyParameters {
+             margin-top: 20px;
+             padding: 15px;
+             border: 1px solid #555;
+             border-radius: 5px;
+             background-color: #3a3a3a;
+             display: none;
+             animation: fadeIn 0.5s ease-in-out;
+        }
+         #midjourneyParameters .form-group {
+             margin-bottom: 15px;
+         }
+         #midjourneyParameters .form-group:last-child {
+             margin-bottom: 0;
+         }
+         #midjourneyParameters legend {
+             font-size: 1.1em;
+             font-weight: bold;
+             color: #cccccc; /* Ensure legend color is applied */
+         }
+        .form-group .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+         .form-group .slider-group input[type="range"] {
+             flex-grow: 1;
+             padding: 0;
+             height: 8px;
+             cursor: pointer;
+             background: #555;
+             border-radius: 4px;
+             outline: none;
+             -webkit-appearance: none;
+             appearance: none;
+         }
+        .form-group .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-top: -5px;
+             box-shadow: 0 0 5px rgba(0,123,255,.5);
+        }
+        .form-group .slider-group input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+             box-shadow: 0 0 5px rgba(0,123,255,.5);
+        }
+         .form-group .slider-group .slider-value {
+             flex-shrink: 0;
+             min-width: 30px;
+             text-align: right;
+             font-size: 0.9em;
+             color: #cccccc;
+         }
 
         .live-preview-section {
             margin-top: 20px;
             padding: 20px;
-            background-color: #303030; /* Match selected items container background */
+            background-color: #303030;
             border-radius: 5px;
-            border: 1px solid #555; /* Darker border */
+            border: 1px solid #555;
         }
 
         .live-preview-section h2 {
             margin-top: 0;
-            color: #eeeeee; /* Lighter heading color */
+            color: #eeeeee;
         }
 
         #livePreview {
             width: 100%;
-            min-height: 150px;
-            padding: 15px; /* Slightly more padding */
-            border: 1px solid #555; /* Darker border */
+            min-height: 100px; /* Adjusted min-height, auto-expand will handle actual */
+            padding: 15px;
+            border: 1px solid #555;
             border-radius: 4px;
-            background-color: #202020; /* Even darker background for text area */
-            color: #b0b0b0; /* Light gray text */
+            background-color: #202020;
+            color: #b0b0b0;
             font-family: "Courier New", Courier, monospace;
             font-size: 0.95em;
-            line-height: 1.6; /* Slightly more line height */
+            line-height: 1.6;
             box-sizing: border-box;
-            margin-bottom: 15px; /* Slightly more margin */
-            resize: vertical; /* Allow vertical resize */
+            margin-bottom: 15px;
+            resize: vertical;
+            overflow-y: hidden; /* To prevent scrollbar during auto-expand */
         }
 
         .action-buttons {
@@ -277,7 +375,7 @@
             margin-bottom: 10px;
         }
 
-        #copyPromptButton, #resetFormButton, #exportCsvButton {
+        #generatePromptButton, #copyPromptButton, #resetFormButton, #exportCsvButton {
             color: white;
             padding: 10px 15px;
             border: none;
@@ -288,74 +386,69 @@
             flex-grow: 1;
             min-width: 120px;
         }
-        /* Keep button colors for functionality clarity, adjust slightly for dark mode */
-        #copyPromptButton { background-color: #28a745; } /* Green */
+         #generatePromptButton { background-color: #007bff; }
+        #generatePromptButton:hover { background-color: #0056b3; }
+        #copyPromptButton { background-color: #28a745; }
         #copyPromptButton:hover { background-color: #218838; }
-
-        #resetFormButton { background-color: #dc3545; } /* Red */
+        #resetFormButton { background-color: #dc3545; }
         #resetFormButton:hover { background-color: #c82333; }
-
-        #exportCsvButton { background-color: #17a2b8; } /* Cyan/Teal */
+        #exportCsvButton { background-color: #17a2b8; }
         #exportCsvButton:hover { background-color: #138496; }
 
-
-        .notification { /* Renamed for general use */
+        .notification {
             display: none;
             margin-left: 10px;
-            padding: 10px 15px; /* More padding */
+            padding: 10px 15px;
             border-radius: 4px;
             font-size: 0.9em;
             flex-basis: 100%;
-            margin-top: 10px; /* More margin */
-            box-sizing: border-box; /* Include padding in width */
+            margin-top: 10px;
+            box-sizing: border-box;
         }
-        /* Notification colors for dark mode */
         .notification.success {
-            background-color: #283d2e; /* Darker green */
-            color: #a3c6a8; /* Lighter green text */
+            background-color: #283d2e;
+            color: #a3c6a8;
             border: 1px solid #385e44;
         }
          .notification.error {
-            background-color: #4e2d30; /* Darker red */
-            color: #d69d9f; /* Lighter red text */
+            background-color: #4e2d30;
+            color: #d69d9f;
             border: 1px solid #6c4449;
         }
          .notification.pending {
-            background-color: #4a3d2d; /* Darker yellow/brown */
-            color: #d3b09b; /* Lighter yellow text */
+            background-color: #4a3d2d;
+            color: #d3b09b;
             border: 1px solid #66533f;
         }
-
 
         #csvOutputArea {
             width: 100%;
             min-height: 60px;
-            padding: 15px; /* More padding */
-            border: 1px dashed #007bff; /* Keep blue dashed border for visual cue */
+            padding: 15px;
+            border: 1px dashed #007bff;
             border-radius: 4px;
-            background-color: #303840; /* Dark blueish background */
-            color: #b0b0b0; /* Light gray text */
+            background-color: #303840;
+            color: #b0b0b0;
             font-family: "Courier New", Courier, monospace;
             font-size: 0.9em;
             line-height: 1.5;
             box-sizing: border-box;
-            margin-top: 15px; /* More margin */
+            margin-top: 15px;
             display: none;
-            resize: vertical; /* Allow vertical resize */
+            resize: vertical;
         }
-
 
         footer {
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #444; /* Darker border */
-            color: #b0b0b0; /* Lighter gray footer text */
+            border-top: 1px solid #444;
+            color: #b0b0b0;
             font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
-            body { padding: 10px; } /* Reduce padding on small screens */
+            body { padding: 10px; }
             .container { padding: 15px; }
             .dynamic-select-group { flex-direction: column; align-items: stretch; }
             .dynamic-select-group select, .dynamic-select-group button { width: 100%; }
@@ -371,10 +464,10 @@
     <div class="container">
         <header>
             <h1>PromptCraft Pro</h1>
-            <p>Advanced AI Prompt Architect & Database Assistant</p>
+            <p>Advanced AI Prompt Architect</p>
         </header>
 
-        <main id="promptCraftAppContainer"> <!-- Wrapped main content for form reset -->
+        <main id="promptCraftAppContainer">
         <form id="promptCraftForm">
             <div class="sections">
                 <!-- Section 1: Foundation -->
@@ -383,9 +476,8 @@
                     <div class="accordion-content">
                         <div class="form-group">
                             <label for="primarySubject">Primary Subject/Concept:</label>
-                            <input type="text" id="primarySubject" placeholder="e.g., A majestic griffin, an abandoned spaceship">
+                            <textarea id="primarySubject" rows="1" placeholder="e.g., A majestic griffin, an abandoned spaceship"></textarea>
                         </div>
-                        <!-- Result Image URL field removed as requested -->
                         <div class="form-group">
                             <label for="overallStyleSingle">Overall Style(s):</label>
                             <div class="dynamic-select-group">
@@ -484,7 +576,6 @@
                     </div>
                 </details>
 
-                <!-- Section 2: Visuals (Content same as before, omitted for brevity) -->
                 <details class="accordion-item">
                     <summary class="accordion-header">2. Visuals - "The Lens & Light"</summary>
                     <div class="accordion-content">
@@ -557,7 +648,6 @@
                     </div>
                 </details>
 
-                <!-- Section 3: Setting & Composition (Content same as before, omitted for brevity) -->
                  <details class="accordion-item">
                     <summary class="accordion-header">3. Setting & Composition - "The Scene"</summary>
                     <div class="accordion-content">
@@ -595,7 +685,6 @@
                     </div>
                 </details>
 
-                <!-- Section 4: Artistic Flair & Modifiers (Content same as before, omitted for brevity) -->
                 <details class="accordion-item">
                     <summary class="accordion-header">4. Artistic Flair & Modifiers - "The Signature Touch"</summary>
                     <div class="accordion-content">
@@ -657,23 +746,76 @@
                             <select id="targetPlatform">
                                 <option value="">-- None --</option>
                                 <option value="Midjourney">Midjourney</option>
-                                <option value="DALL-E (ChatGPT/API)">DALL-E (ChatGPT/API)</option>
-                                <option value="Stable Diffusion (various UIs)">Stable Diffusion (various UIs)</option>
-                                <option value="Leonardo AI">Leonardo AI</option>
-                                <option value="Adobe Firefly">Adobe Firefly</option>
-                                <option value="Google Gemini Image Generation">Google Gemini Image Generation</option>
-                                <option value="Ideogram">Ideogram</option>
-                                <option value="NightCafe Creator">NightCafe Creator</option>
-                                <option value="Playground AI">Playground AI</option>
-                                <option value="Canva AI">Canva AI Image Generator</option>
-                                <option value="Microsoft Designer (Image Creator)">Microsoft Designer (Image Creator)</option>
-                                <option value="Freepik AI">Freepik AI</option>
-                                <option value="Artbreeder">Artbreeder</option>
-                                <option value="Deep Dream Generator">Deep Dream Generator</option>
-                                <option value="Civitai (for model specific prompts)">Civitai (for model specific prompts)</option>
-                                <option value="Krea AI">Krea AI</option>
                             </select>
                         </div>
+
+                         <div id="midjourneyParameters">
+                             <legend>Midjourney Parameters</legend>
+                             <div class="form-group">
+                                 <label for="mjAspectRatio">Aspect Ratio (--ar W:H):</label>
+                                 <input type="text" id="mjAspectRatio" placeholder="e.g., 16:9, 3:2, 1:1">
+                                 <small>Sets the aspect ratio of the generated image.</small>
+                             </div>
+                             <div class="form-group">
+                                 <label for="mjVersion">Version (--v 1-6):</label>
+                                 <select id="mjVersion">
+                                     <option value="">-- Default (v6) --</option>
+                                     <option value="1">v1</option>
+                                     <option value="2">v2</option>
+                                     <option value="3">v3</option>
+                                     <option value="4">v4</option>
+                                     <option value="5">v5</option>
+                                     <option value="5.1">v5.1</option>
+                                     <option value="5.2">v5.2</option>
+                                     <option value="6">v6</option>
+                                 </select>
+                                  <small>Select the Midjourney model version.</small>
+                             </div>
+                            <div class="form-group">
+                                <label for="mjStylize">Stylize (--s 0-1000):</label>
+                                <div class="slider-group">
+                                    <input type="range" id="mjStylize" min="0" max="1000" step="1" value="500">
+                                     <span class="slider-value" id="mjStylizeDisplay">500</span>
+                                </div>
+                                <small>How artistic (vs literal) the result is. Default is 100 (v5/5.1/5.2) or 750 (v6).</small>
+                            </div>
+                             <div class="form-group">
+                                <label for="mjQuality">Quality (--q .25, .5, 1):</label>
+                                 <select id="mjQuality">
+                                     <option value="">-- Default (1 for v6) --</option>
+                                     <option value=".25">.25</option>
+                                     <option value=".5">.5</option>
+                                     <option value="1">1</option>
+                                 </select>
+                                  <small>Controls the rendering time and detail. Higher values cost more.</small>
+                            </div>
+                             <div class="form-group">
+                                 <label for="mjSeed">Seed (--seed number):</label>
+                                 <input type="text" id="mjSeed" placeholder="e.g., 12345">
+                                 <small>A fixed seed ensures reproducible results from the same prompt.</small>
+                             </div>
+                             <div class="form-group">
+                                <label for="mjChaos">Chaos (--c 0-100):</label>
+                                <div class="slider-group">
+                                    <input type="range" id="mjChaos" min="0" max="100" step="1" value="0">
+                                     <span class="slider-value" id="mjChaosDisplay">0</span>
+                                </div>
+                                <small>How varied and unexpected the results are. Higher values produce more unusual images.</small>
+                             </div>
+                             <div class="form-group">
+                                <label for="mjStop">Stop (--stop 10-100):</label>
+                                <div class="slider-group">
+                                    <input type="range" id="mjStop" min="10" max="100" step="1" value="100">
+                                     <span class="slider-value" id="mjStopDisplay">100</span>
+                                </div>
+                                <small>Stop the job at an earlier percentage, resulting in less detailed results.</small>
+                             </div>
+                              <div class="form-group">
+                                 <input type="checkbox" id="mjNiji" name="mjNiji">
+                                 <label for="mjNiji">Use Niji Model (--niji)?</label>
+                                 <small>Optimized for anime style images.</small>
+                             </div>
+                         </div>
                     </div>
                 </details>
 
@@ -681,18 +823,18 @@
 
             <div class="live-preview-section">
                 <h2>Live Prompt Preview:</h2>
-                <textarea id="livePreview" rows="10" readonly placeholder="Your detailed prompt will appear here as you make selections..."></textarea>
+                <textarea id="livePreview" rows="3" readonly placeholder="Enter your subject and select options, then click 'Generate Prompt'..."></textarea>
                 <div class="action-buttons">
+                    <button type="button" id="generatePromptButton">Generate Prompt</button>
                     <button type="button" id="copyPromptButton">Copy Prompt</button>
-                    <!-- Save to Google Sheet button removed as requested -->
                     <button type="button" id="exportCsvButton">Export for Database (CSV)</button>
                     <button type="button" id="resetFormButton">Reset All</button>
-                    <div id="uiNotification" class="notification"></div> <!-- Renamed and styled for general use -->
+                    <div id="uiNotification" class="notification"></div>
                 </div>
                 <textarea id="csvOutputArea" readonly placeholder="CSV data for your database will appear here..."></textarea>
             </div>
-        </form> <!-- #promptCraftForm -->
-        </main> <!-- #promptCraftAppContainer -->
+        </form>
+        </main>
 
         <footer>
             <p>© 2023-2024 PromptCraft Pro. Empowering extraordinary AI images.</p>
@@ -701,248 +843,461 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-        // --- DOM Element References ---
-        const promptCraftForm = document.getElementById('promptCraftForm');
-        const livePreview = document.getElementById('livePreview');
-        const copyPromptButton = document.getElementById('copyPromptButton');
-        const resetFormButton = document.getElementById('resetFormButton');
-        const exportCsvButton = document.getElementById('exportCsvButton');
-        // saveToSheetButton removed
-        // googleSheetWebAppUrlInput removed
-        const csvOutputArea = document.getElementById('csvOutputArea');
-        const uiNotification = document.getElementById('uiNotification'); // Renamed
+            console.log("DOM fully loaded and parsed. Initializing PromptCraft Pro.");
 
-        const primarySubjectInput = document.getElementById('primarySubject');
-        // imageUrlInput removed
-        const dominantMoodsInput = document.getElementById('dominantMoods');
-        const imagingDeviceSelect = document.getElementById('imagingDevice');
-        const lensSimulationSelect = document.getElementById('lensSimulation');
-        const filmStockInput = document.getElementById('filmStock');
-        const includeMetaHintsCheckbox = document.getElementById('includeMetaHints');
-        const primaryLightSourceSelect = document.getElementById('primaryLightSource');
-        const lightingQualitySelect = document.getElementById('lightingQuality');
-        const environmentBackdropTextarea = document.getElementById('environmentBackdrop');
-        const shotTypeSelect = document.getElementById('shotType');
-        const artisticElementsInput = document.getElementById('artisticElements');
-        const customColorPaletteInput = document.getElementById('customColorPalette');
-        const targetPlatformSelect = document.getElementById('targetPlatform');
+            // --- DOM Element References ---
+            const promptCraftForm = document.getElementById('promptCraftForm');
+            const livePreview = document.getElementById('livePreview');
+            const generatePromptButton = document.getElementById('generatePromptButton');
+            const copyPromptButton = document.getElementById('copyPromptButton');
+            const resetFormButton = document.getElementById('resetFormButton');
+            const exportCsvButton = document.getElementById('exportCsvButton');
+            const csvOutputArea = document.getElementById('csvOutputArea');
+            const uiNotification = document.getElementById('uiNotification');
 
-        const overallStyleSingleSelect = document.getElementById('overallStyleSingle');
-        const addOverallStyleButton = document.getElementById('addOverallStyleButton');
-        const selectedOverallStylesContainer = document.getElementById('selectedOverallStylesContainer');
+            const primarySubjectTextarea = document.getElementById('primarySubject');
+            const dominantMoodsInput = document.getElementById('dominantMoods');
+            const imagingDeviceSelect = document.getElementById('imagingDevice');
+            const lensSimulationSelect = document.getElementById('lensSimulation');
+            const filmStockInput = document.getElementById('filmStock');
+            const includeMetaHintsCheckbox = document.getElementById('includeMetaHints');
+            const primaryLightSourceSelect = document.getElementById('primaryLightSource');
+            const lightingQualitySelect = document.getElementById('lightingQuality');
+            const environmentBackdropTextarea = document.getElementById('environmentBackdrop');
+            const shotTypeSelect = document.getElementById('shotType');
+            const artisticElementsInput = document.getElementById('artisticElements');
+            const customColorPaletteInput = document.getElementById('customColorPalette');
+            const targetPlatformSelect = document.getElementById('targetPlatform');
 
-        const detailTextureSingleSelect = document.getElementById('detailTextureSingle');
-        const addDetailTextureButton = document.getElementById('addDetailTextureButton');
-        const selectedDetailTexturesContainer = document.getElementById('selectedDetailTexturesContainer');
+            const midjourneyParametersDiv = document.getElementById('midjourneyParameters');
+            const mjAspectRatioInput = document.getElementById('mjAspectRatio');
+            const mjVersionSelect = document.getElementById('mjVersion');
+            const mjStylizeInput = document.getElementById('mjStylize');
+            const mjStylizeDisplay = document.getElementById('mjStylizeDisplay');
+            const mjQualitySelect = document.getElementById('mjQuality');
+            const mjSeedInput = document.getElementById('mjSeed');
+            const mjChaosInput = document.getElementById('mjChaos');
+            const mjChaosDisplay = document.getElementById('mjChaosDisplay');
+            const mjStopInput = document.getElementById('mjStop');
+            const mjStopDisplay = document.getElementById('mjStopDisplay');
+            const mjNijiCheckbox = document.getElementById('mjNiji');
 
-        const colorPaletteSingleSelect = document.getElementById('colorPaletteSingle');
-        const addColorPaletteButton = document.getElementById('addColorPaletteButton');
-        const selectedColorPalettesContainer = document.getElementById('selectedColorPalettesContainer');
+            const overallStyleSingleSelect = document.getElementById('overallStyleSingle');
+            const addOverallStyleButton = document.getElementById('addOverallStyleButton');
+            const selectedOverallStylesContainer = document.getElementById('selectedOverallStylesContainer');
+            const detailTextureSingleSelect = document.getElementById('detailTextureSingle');
+            const addDetailTextureButton = document.getElementById('addDetailTextureButton');
+            const selectedDetailTexturesContainer = document.getElementById('selectedDetailTexturesContainer');
+            const colorPaletteSingleSelect = document.getElementById('colorPaletteSingle');
+            const addColorPaletteButton = document.getElementById('addColorPaletteButton');
+            const selectedColorPalettesContainer = document.getElementById('selectedColorPalettesContainer');
+            const secretKeywordSingleSelect = document.getElementById('secretKeywordSingle');
+            const addSecretKeywordButton = document.getElementById('addSecretKeywordButton');
+            const selectedSecretKeywordsContainer = document.getElementById('selectedSecretKeywordsContainer');
 
-        const secretKeywordSingleSelect = document.getElementById('secretKeywordSingle');
-        const addSecretKeywordButton = document.getElementById('addSecretKeywordButton');
-        const selectedSecretKeywordsContainer = document.getElementById('selectedSecretKeywordsContainer');
+            // --- Data Structures ---
+            let selectedStylesArray = [];
+            let selectedDetailTexturesArray = [];
+            let selectedColorPalettesArray = [];
+            let selectedKeywordsArray = [];
 
-        // GOOGLE_SHEET_WEB_APP_URL removed
+            const deviceCompatibility = {
+                "Professional DSLR (e.g., Canon 5D Mark IV)": { lenses: [{ value: "85mm f/1.4 portrait lens", text: "85mm Portrait (Shallow DOF)" }, { value: "35mm street photography lens", text: "35mm Street (Versatile)" }, { value: "Macro lens with extreme detail", text: "Macro Lens (Extreme Detail)" }], filmStockPlaceholder: "e.g., Clean digital sensor, RAW quality, Neutral profile" },
+                "Classic Leica M-series": { lenses: [{ value: "Leica Summilux 35mm f/1.4", text: "Leica Summilux 35mm" }, { value: "Leica Noctilux 50mm f/0.95", text: "Leica Noctilux 50mm (Low Light)" }], filmStockPlaceholder: "e.g., Leica sensor look, Monochrome high contrast" },
+                "High-End Cinema Camera (e.g., RED Monstro)": { lenses: [{ value: "Cinema prime lens (e.g., Arri Master Prime 35mm)", text: "Cinema Prime 35mm" }, { value: "Anamorphic lens with characteristic flare", text: "Anamorphic Lens" }], filmStockPlaceholder: "e.g., .R3D RAW quality, Cinematic color science" },
+                "Modern Smartphone (e.g., iPhone 15 Pro)": { lenses: [{ value: "Smartphone main wide lens", text: "Smartphone Main Wide" }, { value: "Smartphone ultrawide lens", text: "Smartphone Ultrawide" }, { value: "Smartphone telephoto lens", text: "Smartphone Telephoto" }], filmStockPlaceholder: "e.g., .HEIC quality, HDR processing, Portrait mode bokeh" },
+                "Vintage Film Camera (e.g., Hasselblad 500CM)": { lenses: [{ value: "Hasselblad Carl Zeiss Planar 80mm f/2.8", text: "Hasselblad Planar 80mm" }, {value: "Petzval lens with swirly bokeh", text: "Petzval Lens (Swirly Bokeh)"}], filmStockPlaceholder: "e.g., Kodachrome 64, Ilford HP5 grain, Medium format film" },
+                "Analog 35mm SLR": { lenses: [{ value: "Classic 50mm f/1.8 lens", text: "Classic 50mm f/1.8" }, {value: "Vintage 28mm wide-angle lens", text: "Vintage 28mm Wide"}], filmStockPlaceholder: "e.g., Kodak Portra 400, Fujifilm Superia, Expired film" },
+                "Large Format View Camera": { lenses: [{ value: "Schneider Symmar-S 150mm f/5.6", text: "View Camera 150mm" }], filmStockPlaceholder: "e.g., 4x5 sheet film, Extreme detail, Scheimpflug effect" },
+                "Instant Film (e.g., Polaroid SX-70)": { lenses: [{ value: "Polaroid SX-70 standard lens", text: "Polaroid SX-70 Lens" }], filmStockPlaceholder: "e.g., Polaroid SX-70 film, Faded colors, Light leaks" },
+                "Drone FPV footage": { lenses: [{ value: "Wide-angle FPV drone lens", text: "Wide FPV Drone Lens" }], filmStockPlaceholder: "e.g., GoPro sensor look, Prop blur, Action camera footage" },
+                "Security camera footage": { lenses: [{ value: "Fixed wide-angle security lens", text: "Fixed Security Lens" }], filmStockPlaceholder: "e.g., Low resolution, CCTV aesthetic, Timestamp overlay" },
+                "Pinhole camera": { lenses: [{ value: "Pinhole aperture effect", text: "Pinhole Aperture Effect" }], filmStockPlaceholder: "e.g., Soft focus, Long exposure blur, Vignetting" },
+                "Thermal Imaging Camera": { lenses: [{ value: "Thermal lens", text: "Thermal Lens" }], filmStockPlaceholder: "e.g., Heat map, FLIR aesthetic, False color" },
+                "Electron Microscope": { lenses: [{ value: "Electron beam focus", text: "Electron Beam Focus" }], filmStockPlaceholder: "e.g., SEM imagery, Nanoscale detail, Grayscale high contrast" },
+                "": { lenses: [{ value: "", text: "-- Select Lens --" }, { value: "Generic 50mm lens", text:"Generic 50mm lens"}], filmStockPlaceholder: "e.g., General purpose stock" }
+            };
+            const lightingQualityOptions = [
+                { value: "", text: "-- Select Lighting Quality --" }, { value: "Soft diffused lighting", text: "Soft Diffused (Even, gentle shadows)" }, { value: "Hard crisp shadows", text: "Hard Crisp Shadows (Defined, dramatic)" }, { value: "Volumetric lighting (god rays, haze)", text: "Volumetric (God rays, haze, visible beams)" }, { value: "Misty and atmospheric", text: "Misty & Atmospheric (Obscured, moody)" }, { value: "Ethereal glow", text: "Ethereal Glow (Soft, dreamlike radiance)" }, { value: "Flat and even lighting", text: "Flat & Even (Minimal shadows, studio look)" }, { value: "High contrast lighting", text: "High Contrast (Strong lights and darks)" }, { value: "Low key lighting", text: "Low Key (Dark, moody, selective highlights)" }, { value: "High key lighting", text: "High Key (Bright, airy, minimal shadows)" }, { value: "Backlighting", text: "Backlighting (Subject silhouetted or haloed)" }, { value: "Chiaroscuro", text: "Chiaroscuro (Strong light/dark contrast, classic)" }, { value: "Natural window light", text: "Natural Window Light" }, { value: "Studio ring light", text: "Studio Ring Light (Beauty shots)" }, { value: "Caustic lighting patterns", text: "Caustic Lighting (Refracted light patterns)"} ];
+            const detailTextureOptionsData = [
+                { value: "", text: "-- Select Detail/Texture to Add --" }, { value: "Hyper-detailed", text: "Hyper-detailed" }, { value: "Intricate textures", text: "Intricate Textures" }, { value: "Smooth finish", text: "Smooth Finish" }, { value: "Gritty realism", text: "Gritty Realism" }, { value: "Ultrarealistic", text: "Ultrarealistic" }, { value: "8k resolution aesthetic", text: "8K Resolution Aesthetic" }, { value: "4k resolution aesthetic", text: "4K Resolution Aesthetic" }, { value: "Octane render aesthetic", text: "Octane Render Aesthetic" }, { value: "Unreal Engine aesthetic", text: "Unreal Engine Aesthetic" }, { value: "Vray render aesthetic", text: "Vray Render Aesthetic" }, { value: "Sharp focus (tack sharp)", text: "Sharp Focus (Tack sharp)" }, { value: "Soft focus (dreamy)", text: "Soft Focus (Dreamy, slightly blurred)" }, { value: "Visible brushstrokes (painterly)", text: "Visible Brushstrokes (Painterly)" }, { value: "Highly polished", text: "Highly Polished" }, { value: "Rough and weathered", text: "Rough and Weathered" }, { value: "Glossy reflections", text: "Glossy Reflections" }, { value: "Matte finish", text: "Matte Finish" }, { value: "Embroidered details", text: "Embroidered Details" }, { value: "Metallic sheen", text: "Metallic Sheen" }, { value: "Translucent materials", text: "Translucent Materials" }, { value: "Iridescent shimmer", text: "Iridescent Shimmer" }, { value: "Velvet texture", text: "Velvet Texture" }, { value: "Crystalline structure", text: "Crystalline Structure" } ];
+            const colorPaletteOptionsData = [
+                { value: "", text: "-- Select Color Palette/Concept --" }, { value: "Monochromatic (specify color, e.g., blues)", text: "Monochromatic (e.g., blues, grays)" }, { value: "Analogous Colors (harmonious, adjacent on wheel)", text: "Analogous Colors (Harmonious)" }, { value: "Complementary Colors (high contrast, opposite on wheel)", text: "Complementary Colors (High Contrast)" }, { value: "Triadic Colors (vibrant, evenly spaced on wheel)", text: "Triadic Colors (Vibrant)" }, { value: "Split-Complementary Colors", text: "Split-Complementary Colors" }, { value: "Tetradic Colors (rich, rectangular on wheel)", text: "Tetradic Colors (Rich, Complex)" }, { value: "Vibrant Jewel Tones", text: "Vibrant Jewel Tones (Sapphire, Ruby, Emerald)" }, { value: "Earthy Tones (browns, greens, ochres)", text: "Earthy Tones (Browns, Greens, Ochres)" }, { value: "Pastel Colors (soft, desaturated)", text: "Pastel Colors (Soft, Desaturated)" }, { value: "Neon Colors (bright, fluorescent)", text: "Neon Colors (Bright, Fluorescent)" }, { value: "Desaturated and Moody Palette", text: "Desaturated and Moody Palette" }, { value: "Warm Color Palette (reds, oranges, yellows)", text: "Warm Color Palette (Reds, Oranges, Yellows)" }, { value: "Cool Color Palette (blues, greens, purples)", text: "Cool Color Palette (Blues, Greens, Purples)" }, { value: "Sepia Tone (vintage brown monochrome)", text: "Sepia Tone (Vintage Brown)" }, { value: "Grayscale (black, white, shades of gray)", text: "Grayscale (Black & White)" }, { value: "Duotone (specify two colors)", text: "Duotone (e.g., Black and Gold)" }, { value: "High Contrast Black and White", text: "High Contrast Black and White" }, { value: "Synthwave Palette (pinks, purples, teals)", text: "Synthwave Palette (Pinks, Purples, Teals)" }, { value: "Autumnal Colors (oranges, reds, browns, yellows)", text: "Autumnal Colors" }, { value:"Springtime Colors (light greens, pinks, yellows)", text: "Springtime Colors" }, { value: "Iridescent Palette (shifting rainbow colors)", text: "Iridescent Palette" } ];
 
-        // --- Data Structures ---
-        let selectedStylesArray = [];
-        let selectedDetailTexturesArray = [];
-        let selectedColorPalettesArray = [];
-        let selectedKeywordsArray = [];
-
-        const deviceCompatibility = {
-            "Professional DSLR (e.g., Canon 5D Mark IV)": { lenses: [{ value: "85mm f/1.4 portrait lens", text: "85mm Portrait (Shallow DOF)" }, { value: "35mm street photography lens", text: "35mm Street (Versatile)" }, { value: "Macro lens with extreme detail", text: "Macro Lens (Extreme Detail)" }], filmStockPlaceholder: "e.g., Clean digital sensor, RAW quality, Neutral profile" },
-            "Classic Leica M-series": { lenses: [{ value: "Leica Summilux 35mm f/1.4", text: "Leica Summilux 35mm" }, { value: "Leica Noctilux 50mm f/0.95", text: "Leica Noctilux 50mm (Low Light)" }], filmStockPlaceholder: "e.g., Leica sensor look, Monochrome high contrast" },
-            "High-End Cinema Camera (e.g., RED Monstro)": { lenses: [{ value: "Cinema prime lens (e.g., Arri Master Prime 35mm)", text: "Cinema Prime 35mm" }, { value: "Anamorphic lens with characteristic flare", text: "Anamorphic Lens" }], filmStockPlaceholder: "e.g., .R3D RAW quality, Cinematic color science" },
-            "Modern Smartphone (e.g., iPhone 15 Pro)": { lenses: [{ value: "Smartphone main wide lens", text: "Smartphone Main Wide" }, { value: "Smartphone ultrawide lens", text: "Smartphone Ultrawide" }, { value: "Smartphone telephoto lens", text: "Smartphone Telephoto" }], filmStockPlaceholder: "e.g., .HEIC quality, HDR processing, Portrait mode bokeh" },
-            "Vintage Film Camera (e.g., Hasselblad 500CM)": { lenses: [{ value: "Hasselblad Carl Zeiss Planar 80mm f/2.8", text: "Hasselblad Planar 80mm" }, {value: "Petzval lens with swirly bokeh", text: "Petzval Lens (Swirly Bokeh)"}], filmStockPlaceholder: "e.g., Kodachrome 64, Ilford HP5 grain, Medium format film" },
-            "Analog 35mm SLR": { lenses: [{ value: "Classic 50mm f/1.8 lens", text: "Classic 50mm f/1.8" }, {value: "Vintage 28mm wide-angle lens", text: "Vintage 28mm Wide"}], filmStockPlaceholder: "e.g., Kodak Portra 400, Fujifilm Superia, Expired film" },
-            "Large Format View Camera": { lenses: [{ value: "Schneider Symmar-S 150mm f/5.6", text: "View Camera 150mm" }], filmStockPlaceholder: "e.g., 4x5 sheet film, Extreme detail, Scheimpflug effect" },
-            "Instant Film (e.g., Polaroid SX-70)": { lenses: [{ value: "Polaroid SX-70 standard lens", text: "Polaroid SX-70 Lens" }], filmStockPlaceholder: "e.g., Polaroid SX-70 film, Faded colors, Light leaks" },
-            "Drone FPV footage": { lenses: [{ value: "Wide-angle FPV drone lens", text: "Wide FPV Drone Lens" }], filmStockPlaceholder: "e.g., GoPro sensor look, Prop blur, Action camera footage" },
-            "Security camera footage": { lenses: [{ value: "Fixed wide-angle security lens", text: "Fixed Security Lens" }], filmStockPlaceholder: "e.g., Low resolution, CCTV aesthetic, Timestamp overlay" },
-            "Pinhole camera": { lenses: [{ value: "Pinhole aperture effect", text: "Pinhole Aperture Effect" }], filmStockPlaceholder: "e.g., Soft focus, Long exposure blur, Vignetting" },
-            "Thermal Imaging Camera": { lenses: [{ value: "Thermal lens", text: "Thermal Lens" }], filmStockPlaceholder: "e.g., Heat map, FLIR aesthetic, False color" },
-            "Electron Microscope": { lenses: [{ value: "Electron beam focus", text: "Electron Beam Focus" }], filmStockPlaceholder: "e.g., SEM imagery, Nanoscale detail, Grayscale high contrast" },
-            "": { lenses: [{ value: "", text: "-- Select Lens --" }, { value: "Generic 50mm lens", text:"Generic 50mm lens"}], filmStockPlaceholder: "e.g., General purpose stock" }
-        };
-        const lightingQualityOptions = [
-            { value: "", text: "-- Select Lighting Quality --" }, { value: "Soft diffused lighting", text: "Soft Diffused (Even, gentle shadows)" }, { value: "Hard crisp shadows", text: "Hard Crisp Shadows (Defined, dramatic)" }, { value: "Volumetric lighting (god rays, haze)", text: "Volumetric (God rays, haze, visible beams)" }, { value: "Misty and atmospheric", text: "Misty & Atmospheric (Obscured, moody)" }, { value: "Ethereal glow", text: "Ethereal Glow (Soft, dreamlike radiance)" }, { value: "Flat and even lighting", text: "Flat & Even (Minimal shadows, studio look)" }, { value: "High contrast lighting", text: "High Contrast (Strong lights and darks)" }, { value: "Low key lighting", text: "Low Key (Dark, moody, selective highlights)" }, { value: "High key lighting", text: "High Key (Bright, airy, minimal shadows)" }, { value: "Backlighting", text: "Backlighting (Subject silhouetted or haloed)" }, { value: "Chiaroscuro", text: "Chiaroscuro (Strong light/dark contrast, classic)" }, { value: "Natural window light", text: "Natural Window Light" }, { value: "Studio ring light", text: "Studio Ring Light (Beauty shots)" }, { value: "Caustic lighting patterns", text: "Caustic Lighting (Refracted light patterns)"} ];
-        const detailTextureOptionsData = [
-            { value: "", text: "-- Select Detail/Texture to Add --" }, { value: "Hyper-detailed", text: "Hyper-detailed" }, { value: "Intricate textures", text: "Intricate Textures" }, { value: "Smooth finish", text: "Smooth Finish" }, { value: "Gritty realism", text: "Gritty Realism" }, { value: "Ultrarealistic", text: "Ultrarealistic" }, { value: "8k resolution aesthetic", text: "8K Resolution Aesthetic" }, { value: "4k resolution aesthetic", text: "4K Resolution Aesthetic" }, { value: "Octane render aesthetic", text: "Octane Render Aesthetic" }, { value: "Unreal Engine aesthetic", text: "Unreal Engine Aesthetic" }, { value: "Vray render aesthetic", text: "Vray Render Aesthetic" }, { value: "Sharp focus (tack sharp)", text: "Sharp Focus (Tack sharp)" }, { value: "Soft focus (dreamy)", text: "Soft Focus (Dreamy, slightly blurred)" }, { value: "Visible brushstrokes (painterly)", text: "Visible Brushstrokes (Painterly)" }, { value: "Highly polished", text: "Highly Polished" }, { value: "Rough and weathered", text: "Rough and Weathered" }, { value: "Glossy reflections", text: "Glossy Reflections" }, { value: "Matte finish", text: "Matte Finish" }, { value: "Embroidered details", text: "Embroidered Details" }, { value: "Metallic sheen", text: "Metallic Sheen" }, { value: "Translucent materials", text: "Translucent Materials" }, { value: "Iridescent shimmer", text: "Iridescent Shimmer" }, { value: "Velvet texture", text: "Velvet Texture" }, { value: "Crystalline structure", text: "Crystalline Structure" } ];
-        const colorPaletteOptionsData = [
-            { value: "", text: "-- Select Color Palette/Concept --" }, { value: "Monochromatic (specify color, e.g., blues)", text: "Monochromatic (e.g., blues, grays)" }, { value: "Analogous Colors (harmonious, adjacent on wheel)", text: "Analogous Colors (Harmonious)" }, { value: "Complementary Colors (high contrast, opposite on wheel)", text: "Complementary Colors (High Contrast)" }, { value: "Triadic Colors (vibrant, evenly spaced on wheel)", text: "Triadic Colors (Vibrant)" }, { value: "Split-Complementary Colors", text: "Split-Complementary Colors" }, { value: "Tetradic Colors (rich, rectangular on wheel)", text: "Tetradic Colors (Rich, Complex)" }, { value: "Vibrant Jewel Tones", text: "Vibrant Jewel Tones (Sapphire, Ruby, Emerald)" }, { value: "Earthy Tones (browns, greens, ochres)", text: "Earthy Tones (Browns, Greens, Ochres)" }, { value: "Pastel Colors (soft, desaturated)", text: "Pastel Colors (Soft, Desaturated)" }, { value: "Neon Colors (bright, fluorescent)", text: "Neon Colors (Bright, Fluorescent)" }, { value: "Desaturated and Moody Palette", text: "Desaturated and Moody Palette" }, { value: "Warm Color Palette (reds, oranges, yellows)", text: "Warm Color Palette (Reds, Oranges, Yellows)" }, { value: "Cool Color Palette (blues, greens, purples)", text: "Cool Color Palette (Blues, Greens, Purples)" }, { value: "Sepia Tone (vintage brown monochrome)", text: "Sepia Tone (Vintage Brown)" }, { value: "Grayscale (black, white, shades of gray)", text: "Grayscale (Black & White)" }, { value: "Duotone (specify two colors)", text: "Duotone (e.g., Black and Gold)" }, { value: "High Contrast Black and White", text: "High Contrast Black and White" }, { value: "Synthwave Palette (pinks, purples, teals)", text: "Synthwave Palette (Pinks, Purples, Teals)" }, { value: "Autumnal Colors (oranges, reds, browns, yellows)", text: "Autumnal Colors" }, { value: "Springtime Colors (light greens, pinks, yellows)", text: "Springtime Colors" }, { value: "Iridescent Palette (shifting rainbow colors)", text: "Iridescent Palette" } ];
-
-        // --- Helper Functions ---
-        function populateDropdown(selectElement, optionsArray) { selectElement.innerHTML = ''; optionsArray.forEach(optionData => { const option = document.createElement('option'); option.value = optionData.value; option.textContent = optionData.text; selectElement.appendChild(option); }); }
-        function renderSelectedItems(container, itemsArray, onRemoveCallback) { container.innerHTML = ''; itemsArray.forEach(itemValue => { const tag = document.createElement('span'); tag.className = 'selected-item-tag'; tag.textContent = itemValue; const removeBtn = document.createElement('button'); removeBtn.className = 'remove-item-btn'; removeBtn.innerHTML = '×'; removeBtn.type = 'button'; removeBtn.onclick = () => { onRemoveCallback(itemValue); }; tag.appendChild(removeBtn); container.appendChild(tag); }); }
-        function addItem(selectElement, itemsArray, container, onRemoveCallback) { const value = selectElement.value; if (value && !itemsArray.includes(value)) { itemsArray.push(value); renderSelectedItems(container, itemsArray, onRemoveCallback); generatePrompt(); } selectElement.value = ""; }
-        function removeItem(valueToRemove, itemsArray, container, onRemoveCallback) { const index = itemsArray.indexOf(valueToRemove); if (index > -1) { itemsArray.splice(index, 1); renderSelectedItems(container, itemsArray, onRemoveCallback); generatePrompt(); } }
-
-        const removeOverallStyle = (value) => removeItem(value, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle);
-        const removeDetailTexture = (value) => removeItem(value, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture);
-        const removeColorPalette = (value) => removeItem(value, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette);
-        const removeSecretKeyword = (value) => removeItem(value, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword);
-
-        // --- Event Listeners ---
-        [primarySubjectInput, dominantMoodsInput, filmStockInput, includeMetaHintsCheckbox,
-         primaryLightSourceSelect, environmentBackdropTextarea, shotTypeSelect, artisticElementsInput,
-         customColorPaletteInput, targetPlatformSelect, lightingQualitySelect].forEach(el => {
-            el.addEventListener('input', generatePrompt);
-            if (el.tagName === 'SELECT' || el.type === 'checkbox') {
-                 el.addEventListener('change', generatePrompt);
+            // --- Helper Functions ---
+            function populateDropdown(selectElement, optionsArray) {
+                if (!selectElement) { console.error("populateDropdown: selectElement is null"); return; }
+                selectElement.innerHTML = '';
+                optionsArray.forEach(optionData => {
+                    const option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.textContent = optionData.text;
+                    selectElement.appendChild(option);
+                });
             }
-        });
 
-        addOverallStyleButton.addEventListener('click', () => addItem(overallStyleSingleSelect, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle));
-        addDetailTextureButton.addEventListener('click', () => addItem(detailTextureSingleSelect, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture));
-        addColorPaletteButton.addEventListener('click', () => addItem(colorPaletteSingleSelect, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette));
-        addSecretKeywordButton.addEventListener('click', () => addItem(secretKeywordSingleSelect, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword));
+            function renderSelectedItems(container, itemsArray, onRemoveCallback) {
+                if (!container) { console.error("renderSelectedItems: container is null"); return; }
+                container.innerHTML = '';
+                itemsArray.forEach(itemValue => {
+                    const tag = document.createElement('span');
+                    tag.className = 'selected-item-tag';
+                    tag.textContent = itemValue;
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-item-btn';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.type = 'button';
+                    removeBtn.onclick = () => { onRemoveCallback(itemValue); };
+                    tag.appendChild(removeBtn);
+                    container.appendChild(tag);
+                });
+            }
 
-        imagingDeviceSelect.addEventListener('change', () => {
-            const selectedDeviceValue = imagingDeviceSelect.value;
-            const compatibility = deviceCompatibility[selectedDeviceValue] || deviceCompatibility[""];
-            populateDropdown(lensSimulationSelect, compatibility.lenses);
-            filmStockInput.placeholder = compatibility.filmStockPlaceholder;
-            lensSimulationSelect.value = "";
-            generatePrompt();
-        });
+            function addItem(selectElement, itemsArray, container, onRemoveCallback) {
+                if (!selectElement) { console.error("addItem: selectElement is null"); return; }
+                const value = selectElement.value;
+                if (value && !itemsArray.includes(value)) {
+                    itemsArray.push(value);
+                    renderSelectedItems(container, itemsArray, onRemoveCallback);
+                }
+                selectElement.value = ""; // Reset select
+            }
 
-        resetFormButton.addEventListener('click', () => {
-            promptCraftForm.reset();
-            selectedStylesArray.length = 0;
-            selectedDetailTexturesArray.length = 0;
-            selectedColorPalettesArray.length = 0;
-            selectedKeywordsArray.length = 0;
+            function removeItem(valueToRemove, itemsArray, container, onRemoveCallback) {
+                const index = itemsArray.indexOf(valueToRemove);
+                if (index > -1) {
+                    itemsArray.splice(index, 1);
+                    renderSelectedItems(container, itemsArray, onRemoveCallback);
+                }
+            }
+
+            const removeOverallStyle = (value) => removeItem(value, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle);
+            const removeDetailTexture = (value) => removeItem(value, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture);
+            const removeColorPalette = (value) => removeItem(value, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette);
+            const removeSecretKeyword = (value) => removeItem(value, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword);
+
+            function autoExpandTextarea(textarea) {
+                if (!textarea || typeof textarea.style === 'undefined') {
+                    // console.warn("autoExpandTextarea: textarea or textarea.style is undefined", textarea);
+                    return;
+                }
+                textarea.style.height = 'auto'; // Temporarily shrink to get correct scrollHeight
+                // Using a minimal delay with requestAnimationFrame for layout reflow
+                requestAnimationFrame(() => {
+                    if (textarea && typeof textarea.style !== 'undefined') {
+                         textarea.style.height = textarea.scrollHeight + 'px';
+                    }
+                });
+            }
+
+            // --- Event Listeners ---
+            if (primarySubjectTextarea) primarySubjectTextarea.addEventListener('input', () => autoExpandTextarea(primarySubjectTextarea));
+            if (environmentBackdropTextarea) environmentBackdropTextarea.addEventListener('input', () => autoExpandTextarea(environmentBackdropTextarea));
+
+            if (addOverallStyleButton) addOverallStyleButton.addEventListener('click', () => addItem(overallStyleSingleSelect, selectedStylesArray, selectedOverallStylesContainer, removeOverallStyle));
+            if (addDetailTextureButton) addDetailTextureButton.addEventListener('click', () => addItem(detailTextureSingleSelect, selectedDetailTexturesArray, selectedDetailTexturesContainer, removeDetailTexture));
+            if (addColorPaletteButton) addColorPaletteButton.addEventListener('click', () => addItem(colorPaletteSingleSelect, selectedColorPalettesArray, selectedColorPalettesContainer, removeColorPalette));
+            if (addSecretKeywordButton) addSecretKeywordButton.addEventListener('click', () => addItem(secretKeywordSingleSelect, selectedKeywordsArray, selectedSecretKeywordsContainer, removeSecretKeyword));
+
+            if (targetPlatformSelect) {
+                targetPlatformSelect.addEventListener('change', () => {
+                    if (midjourneyParametersDiv) {
+                        midjourneyParametersDiv.style.display = (targetPlatformSelect.value === 'Midjourney') ? 'block' : 'none';
+                    }
+                });
+            }
+
+            if (mjStylizeInput && mjStylizeDisplay) mjStylizeInput.addEventListener('input', () => { mjStylizeDisplay.textContent = mjStylizeInput.value; });
+            if (mjChaosInput && mjChaosDisplay) mjChaosInput.addEventListener('input', () => { mjChaosDisplay.textContent = mjChaosInput.value; });
+            if (mjStopInput && mjStopDisplay) mjStopInput.addEventListener('input', () => { mjStopDisplay.textContent = mjStopInput.value; });
+
+            if (imagingDeviceSelect) {
+                imagingDeviceSelect.addEventListener('change', () => {
+                    const selectedDeviceValue = imagingDeviceSelect.value;
+                    const compatibility = deviceCompatibility[selectedDeviceValue] || deviceCompatibility[""];
+                    populateDropdown(lensSimulationSelect, compatibility.lenses);
+                    if(filmStockInput) filmStockInput.placeholder = compatibility.filmStockPlaceholder;
+                    if(lensSimulationSelect) lensSimulationSelect.value = "";
+                });
+            }
+
+            if (generatePromptButton) generatePromptButton.addEventListener('click', generatePrompt);
+            if (resetFormButton) resetFormButton.addEventListener('click', () => {
+                console.log("Reset button clicked.");
+                if (promptCraftForm) promptCraftForm.reset();
+
+                selectedStylesArray.length = 0;
+                selectedDetailTexturesArray.length = 0;
+                selectedColorPalettesArray.length = 0;
+                selectedKeywordsArray.length = 0;
+                renderSelectedItems(selectedOverallStylesContainer, selectedStylesArray, removeOverallStyle);
+                renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
+                renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
+                renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
+
+                const currentImagingDeviceValue = imagingDeviceSelect ? imagingDeviceSelect.value : "";
+                const initialDeviceCompat = deviceCompatibility[currentImagingDeviceValue] || deviceCompatibility[""];
+                populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
+                if (filmStockInput) filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
+                if (lensSimulationSelect) lensSimulationSelect.value = "";
+
+                if (csvOutputArea) {
+                    csvOutputArea.style.display = 'none';
+                    csvOutputArea.value = '';
+                }
+                if (midjourneyParametersDiv) midjourneyParametersDiv.style.display = 'none';
+                hideUiNotification();
+
+                if (mjStylizeInput && mjStylizeDisplay) mjStylizeDisplay.textContent = mjStylizeInput.value; // Reflects reset value
+                if (mjChaosInput && mjChaosDisplay) mjChaosDisplay.textContent = mjChaosInput.value;
+                if (mjStopInput && mjStopDisplay) mjStopDisplay.textContent = mjStopInput.value;
+
+                if(primarySubjectTextarea) primarySubjectTextarea.value = '';
+                if(environmentBackdropTextarea) environmentBackdropTextarea.value = '';
+                if(livePreview) livePreview.value = "Enter your subject and select options, then click 'Generate Prompt'...";
+
+                autoExpandTextarea(primarySubjectTextarea);
+                autoExpandTextarea(environmentBackdropTextarea);
+                autoExpandTextarea(livePreview);
+            });
+
+            if (exportCsvButton) exportCsvButton.addEventListener('click', () => {
+                if (!livePreview) { console.error("CSV Export: livePreview is null"); return; }
+                const timestamp = new Date().toISOString();
+                const promptTextRaw = livePreview.value.split('\n\n(')[0].trim();
+                const promptText = promptTextRaw.replace(/"/g, '""');
+
+                if (!promptTextRaw || promptTextRaw === "Enter your subject and select options, then click 'Generate Prompt'...") {
+                     showUiNotification("Cannot export empty or placeholder prompt.", 'error');
+                     if(csvOutputArea) csvOutputArea.style.display = 'none';
+                     return;
+                }
+
+                const csvRow = `"${timestamp}","${promptText}"`;
+                if (csvOutputArea) {
+                    csvOutputArea.value = "Timestamp,Prompt\n" + csvRow;
+                    csvOutputArea.style.display = 'block';
+                    csvOutputArea.select();
+                    try {
+                        document.execCommand('copy');
+                        showUiNotification("CSV row copied to clipboard!", 'success');
+                    } catch (err) {
+                        showUiNotification("CSV data ready. Please copy manually.", 'pending');
+                    }
+                }
+            });
+
+            if (copyPromptButton) copyPromptButton.addEventListener('click', () => {
+                if (!livePreview) { console.error("Copy Prompt: livePreview is null"); return; }
+                let originalText = livePreview.value;
+                let textToCopy = originalText;
+                const platformNoteIndex = originalText.indexOf("\n\n(");
+                if (platformNoteIndex !== -1) {
+                    textToCopy = originalText.substring(0, platformNoteIndex).trim();
+                }
+
+                if (!textToCopy || textToCopy === "Enter your subject and select options, then click 'Generate Prompt'") {
+                    showUiNotification("Nothing to copy.", 'error');
+                    return;
+                }
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showUiNotification('Prompt copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Failed to copy prompt: ', err);
+                    try {
+                        const tempTextArea = document.createElement('textarea');
+                        tempTextArea.value = textToCopy;
+                        tempTextArea.style.position = 'fixed';
+                        tempTextArea.style.opacity = '0';
+                        document.body.appendChild(tempTextArea);
+                        tempTextArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempTextArea);
+                        showUiNotification('Prompt copied (fallback)!', 'success');
+                    } catch (execCommandErr) {
+                        showUiNotification('Copy failed. Please copy manually.', 'error', 0);
+                    }
+                });
+            });
+
+            // --- Prompt Generation Logic ---
+            function generatePrompt() {
+                console.log("Attempting to generate prompt...");
+                try {
+                    let promptSegments = [];
+                    const addSegment = (text) => {
+                        if (text && text.trim() !== "") {
+                            let pText = text.trim();
+                            if (pText.length > 0 && pText.match(/^[a-zA-Z]/)) {
+                                pText = pText.charAt(0).toUpperCase() + pText.slice(1);
+                            }
+                            if (!pText.endsWith('.') && !pText.endsWith('!') && !pText.endsWith('?') && !pText.endsWith(',')) {
+                                pText += ".";
+                            } else if (pText.endsWith(',')) {
+                                pText = pText.slice(0, -1) + ".";
+                            }
+                            promptSegments.push(pText);
+                        }
+                    };
+                    const naturalJoin = (arr, conj = 'and') => {
+                        if (!arr || arr.length === 0) return "";
+                        if (arr.length === 1) return arr[0];
+                        const allButLast = arr.slice(0, -1);
+                        const lastItem = arr.slice(-1)[0];
+                        return allButLast.join(', ') + ` ${conj} ` + lastItem;
+                    };
+
+                    const subject = primarySubjectTextarea ? primarySubjectTextarea.value.trim() : "";
+                    if (!subject) {
+                        if(livePreview) livePreview.value = "Please enter a primary subject and click 'Generate Prompt'";
+                        autoExpandTextarea(livePreview);
+                        console.log("No subject provided.");
+                        return;
+                    }
+                    console.log("Subject:", subject);
+
+                    let foundationSentence = `A depiction of ${subject}`;
+                    if (selectedStylesArray.length > 0) foundationSentence += `, crafted in a style that embodies ${naturalJoin(selectedStylesArray)}`;
+                    const moodsRaw = dominantMoodsInput ? dominantMoodsInput.value.trim() : "";
+                    const moods = moodsRaw.split(',').map(s => s.trim()).filter(s => s);
+                    if (moods.length > 0) foundationSentence += `, evoking dominant moods of ${naturalJoin(moods)}`;
+                    addSegment(foundationSentence);
+
+                    const device = imagingDeviceSelect ? imagingDeviceSelect.value : "";
+                    const lens = lensSimulationSelect ? lensSimulationSelect.value : "";
+                    const film = filmStockInput ? filmStockInput.value.trim() : "";
+                    const metaHints = includeMetaHintsCheckbox ? includeMetaHintsCheckbox.checked : false;
+                    let cameraDetails = [];
+                    if (device) cameraDetails.push(`captured as if through a ${device}`);
+                    if (lens) cameraDetails.push(`utilizing a ${lens}`);
+                    if (film) cameraDetails.push(`with the aesthetic qualities reminiscent of ${film}`);
+                    if (cameraDetails.length > 0) addSegment(`The visual narrative is ${naturalJoin(cameraDetails)}`);
+                    if (metaHints) {
+                        let mhTxt = "The image should possess the depth and clarity of a high-resolution RAW file";
+                        if (device.toLowerCase().includes("dslr")) mhTxt += ", similar to an IMG_xxxx.CR2 capture";
+                        else if (device.toLowerCase().includes("cinema")) mhTxt += ", as if sourced from a .R3D cinematic sequence";
+                        else if (device.toLowerCase().includes("leica")) mhTxt += ", having the distinct look of an unarchived .DNG file";
+                        else if (device.toLowerCase().includes("hasselblad")) mhTxt += ", akin to a medium or large format scan";
+                        else if (device) mhTxt += `, befitting a professional capture from such a device`;
+                        else mhTxt += ", suggesting professional digital capture";
+                        addSegment(mhTxt);
+                    }
+
+                    const lightSource = primaryLightSourceSelect ? primaryLightSourceSelect.value : "";
+                    const lightQualityVal = lightingQualitySelect ? lightingQualitySelect.value : "";
+                    let lightingDesc = [];
+                    if (lightSource) lightingDesc.push(`illuminated primarily by ${lightSource}`);
+                    if (lightQualityVal) lightingDesc.push(`characterized by ${lightQualityVal}`);
+                    if (lightingDesc.length > 0) addSegment(`The scene is ${naturalJoin(lightingDesc)}`);
+
+                    const environment = environmentBackdropTextarea ? environmentBackdropTextarea.value.trim() : "";
+                    const shot = shotTypeSelect ? shotTypeSelect.value : "";
+                    const artistInspRaw = artisticElementsInput ? artisticElementsInput.value.trim() : "";
+                    const artistInsp = artistInspRaw.split(',').map(s => s.trim()).filter(s => s);
+                    if (environment) addSegment(`The setting is ${environment}`);
+                    let compDesc = [];
+                    if (shot) compDesc.push(`composed with a ${shot}`);
+                    if (artistInsp.length > 0) compDesc.push(`drawing inspiration from ${naturalJoin(artistInsp)}`);
+                    if (compDesc.length > 0) addSegment(`Framing and artistic direction should be ${naturalJoin(compDesc)}`);
+
+                    const customColors = customColorPaletteInput ? customColorPaletteInput.value.trim() : "";
+                    let allColors = [...selectedColorPalettesArray];
+                    if (customColors) allColors.push(customColors);
+                    let flairElements = []; // This array will hold the fully formed phrases
+                    if (selectedDetailTexturesArray.length > 0) flairElements.push(`showcasing ${naturalJoin(selectedDetailTexturesArray)}`);
+                    if (allColors.length > 0) flairElements.push(`utilizing a color palette of ${naturalJoin(allColors)}`);
+                    if (selectedKeywordsArray.length > 0) flairElements.push(`subtly incorporating ${naturalJoin(selectedKeywordsArray)} for added depth and uniqueness`);
+                    
+                    if (flairElements.length > 0) { // If there are any flair phrases
+                        addSegment(`Artistic flair is enhanced by ${naturalJoin(flairElements)}`);
+                    }
+
+                    const basePrompt = promptSegments.join(' ').replace(/\s+/g, ' ').trim();
+                    let finalPrompt = basePrompt;
+                    let platformNote = "";
+                    const platform = targetPlatformSelect ? targetPlatformSelect.value : "";
+
+                    if (platform === 'Midjourney') {
+                        let mjParameters = [];
+                        if (mjAspectRatioInput && mjAspectRatioInput.value.trim()) mjParameters.push(`--ar ${mjAspectRatioInput.value.trim()}`);
+                        if (mjVersionSelect && mjVersionSelect.value) mjParameters.push(`--v ${mjVersionSelect.value}`);
+                        if (mjStylizeInput && mjStylizeInput.value !== "500") mjParameters.push(`--s ${mjStylizeInput.value}`);
+                        if (mjQualitySelect && mjQualitySelect.value) mjParameters.push(`--q ${mjQualitySelect.value}`);
+                        if (mjSeedInput && mjSeedInput.value.trim()) mjParameters.push(`--seed ${mjSeedInput.value.trim()}`);
+                        if (mjChaosInput && mjChaosInput.value !== "0") mjParameters.push(`--c ${mjChaosInput.value}`);
+                        if (mjStopInput && mjStopInput.value !== "100") mjParameters.push(`--stop ${mjStopInput.value}`);
+                        if (mjNijiCheckbox && mjNijiCheckbox.checked) mjParameters.push(`--niji`);
+
+                        if (mjParameters.length > 0) {
+                            finalPrompt += " " + mjParameters.join(" ");
+                            platformNote = "\n\n(Midjourney parameters applied: " + mjParameters.join(", ") + ")";
+                        } else {
+                            platformNote = "\n\n(Midjourney selected, but no specific parameters added. Default behavior applies.)";
+                        }
+                    } else if (platform) {
+                        const pText = targetPlatformSelect.options[targetPlatformSelect.selectedIndex].text;
+                        platformNote = `\n\n(Consider platform-specifics for ${pText} e.g., aspect ratios, negative prompts, or parameter syntax.)`;
+                    }
+
+                    if(livePreview) livePreview.value = finalPrompt + platformNote;
+                    console.log("Prompt generated:", finalPrompt + platformNote);
+
+                    autoExpandTextarea(primarySubjectTextarea);
+                    autoExpandTextarea(environmentBackdropTextarea);
+                    autoExpandTextarea(livePreview);
+
+                } catch (error) {
+                    console.error("Error in generatePrompt:", error);
+                    if(livePreview) livePreview.value = "An error occurred generating the prompt. Please check the console (F12).";
+                    showUiNotification(`Error: ${error.message}. Check console.`, 'error', 0);
+                }
+            }
+
+            // --- UI Notification Functions ---
+            function showUiNotification(message, type = 'success', autoHideDuration = 3500) {
+                if (!uiNotification) return;
+                uiNotification.textContent = message;
+                uiNotification.className = `notification ${type}`;
+                uiNotification.style.display = 'block';
+                if (autoHideDuration > 0) {
+                    setTimeout(() => { hideUiNotification(); }, autoHideDuration);
+                }
+            }
+            function hideUiNotification() {
+                if (!uiNotification) return;
+                uiNotification.style.display = 'none';
+                uiNotification.textContent = '';
+                uiNotification.className = 'notification';
+            }
+
+            // --- Initial Setup ---
+            console.log("Running initial setup...");
+            populateDropdown(lightingQualitySelect, lightingQualityOptions);
+            populateDropdown(detailTextureSingleSelect, detailTextureOptionsData);
+            populateDropdown(colorPaletteSingleSelect, colorPaletteOptionsData);
+
+            const initialDevice = imagingDeviceSelect ? imagingDeviceSelect.value : "";
+            const initialDeviceCompat = deviceCompatibility[initialDevice] || deviceCompatibility[""];
+            populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
+            if (filmStockInput) filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
+
             renderSelectedItems(selectedOverallStylesContainer, selectedStylesArray, removeOverallStyle);
             renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
             renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
             renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
-            const initialDeviceCompat = deviceCompatibility[imagingDeviceSelect.value] || deviceCompatibility[""];
-            populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
-            filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
-            lensSimulationSelect.value = "";
-            csvOutputArea.style.display = 'none';
-            csvOutputArea.value = '';
-            hideUiNotification(); // Hide notification on reset
-            generatePrompt();
+
+            if (mjStylizeInput && mjStylizeDisplay) mjStylizeDisplay.textContent = mjStylizeInput.value;
+            if (mjChaosInput && mjChaosDisplay) mjChaosDisplay.textContent = mjChaosInput.value;
+            if (mjStopInput && mjStopDisplay) mjStopDisplay.textContent = mjStopInput.value;
+
+            generatePrompt(); // Call to set initial placeholder in livePreview
+
+            autoExpandTextarea(primarySubjectTextarea);
+            autoExpandTextarea(environmentBackdropTextarea);
+            autoExpandTextarea(livePreview);
+            console.log("Initial setup complete.");
         });
-
-        exportCsvButton.addEventListener('click', () => {
-            const timestamp = new Date().toISOString();
-            // Remove platform note from prompt for CSV
-            const promptText = livePreview.value.split('\n\n(Consider platform-specifics for')[0].trim().replace(/"/g, '""');
-
-            // Check if there is a prompt before exporting
-            if (!promptText) {
-                 showUiNotification("Cannot export empty prompt.", 'error');
-                 csvOutputArea.style.display = 'none';
-                 return;
-            }
-
-            const csvRow = `"${timestamp}","${promptText}"`; // Only timestamp and prompt
-            csvOutputArea.value = "Timestamp,Prompt\n" + csvRow; // Update header
-            csvOutputArea.style.display = 'block';
-            csvOutputArea.select();
-            try { document.execCommand('copy'); showUiNotification("CSV row copied to clipboard! Paste into your spreadsheet.", 'success'); }
-            catch (err) { showUiNotification("CSV data ready in the box below. Please copy manually.", 'pending'); } // Use pending style for manual copy instruction
-        });
-
-        // saveToSheetButton event listener removed
-
-        // --- Prompt Generation Logic ---
-        function generatePrompt() {
-            let promptSegments = [];
-            const addSegment = (text) => { if (text && text.trim() !== "") { let pText = text.trim(); // Capitalize first letter only if it's a letter
-                 if (pText.length > 0 && pText.match(/^[a-zA-Z]/)) {
-                     pText = pText.charAt(0).toUpperCase() + pText.slice(1);
-                 }
-                 // Add a period only if it doesn't end with common punctuation
-                 if (!pText.endsWith('.') && !pText.endsWith('!') && !pText.endsWith('?') && !pText.endsWith(',')) { // Also check for comma for flow
-                     pText += ".";
-                 } else if (pText.endsWith(',')) { // Replace trailing comma with period
-                     pText = pText.slice(0, -1) + ".";
-                 }
-                 promptSegments.push(pText); } };
-            const naturalJoin = (arr, conj = 'and') => { if (!arr || arr.length === 0) return ""; if (arr.length === 1) return arr[0]; const allButLast = arr.slice(0, -1); const last = arr.slice(-1)[0]; return allButLast.join(', ') + ` ${conj} ` + last; };
-            const subject = primarySubjectInput.value.trim(); if (!subject) { livePreview.value = "Please enter a primary subject..."; return; }
-            let foundationSentence = `A depiction of ${subject}`; if (selectedStylesArray.length > 0) foundationSentence += `, crafted in a style that embodies ${naturalJoin(selectedStylesArray)}`; const moods = dominantMoodsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (moods.length > 0) foundationSentence += `, evoking dominant moods of ${naturalJoin(moods)}`; addSegment(foundationSentence);
-            const device = imagingDeviceSelect.value; const lens = lensSimulationSelect.value; const film = filmStockInput.value.trim(); const metaHints = includeMetaHintsCheckbox.checked; let cameraDetails = []; if (device) cameraDetails.push(`captured as if through a ${device}`); if (lens) cameraDetails.push(`utilizing a ${lens}`); if (film) cameraDetails.push(`with the aesthetic qualities reminiscent of ${film}`); if (cameraDetails.length > 0) addSegment(`The visual narrative is ${naturalJoin(cameraDetails)}`); if (metaHints) { let mhTxt = "The image should possess the depth and clarity of a high-resolution RAW file"; if (device.toLowerCase().includes("dslr")) mhTxt += ", similar to an IMG_xxxx.CR2 capture"; else if (device.toLowerCase().includes("cinema")) mhTxt += ", as if sourced from a .R3D cinematic sequence"; else if (device.toLowerCase().includes("leica")) mhTxt += ", having the distinct look of an unarchived .DNG file"; else if (device.toLowerCase().includes("hasselblad")) mhTxt += ", akin to a medium or large format scan"; else if (device) mhTxt += `, befitting a professional capture from such a device`; else mhTxt += ", suggesting professional digital capture"; addSegment(mhTxt); }
-            const lightSource = primaryLightSourceSelect.value; const lightQuality = lightingQualitySelect.value; let lightingDesc = []; if (lightSource) lightingDesc.push(`illuminated primarily by ${lightSource}`); if (lightQuality) lightingDesc.push(`characterized by ${lightQuality}`); if (lightingDesc.length > 0) addSegment(`The scene is ${naturalJoin(lightingDesc)}`);
-            const environment = environmentBackdropTextarea.value.trim(); const shot = shotTypeSelect.value; const artistInsp = artisticElementsInput.value.trim().split(',').map(s => s.trim()).filter(s => s); if (environment) addSegment(`The setting is ${environment}`); let compDesc = []; if (shot) compDesc.push(`composed with a ${shot}`); if (artistInsp.length > 0) compDesc.push(`drawing inspiration from ${naturalJoin(artistInsp)}`); if (compDesc.length > 0) addSegment(`Framing and artistic direction should be ${naturalJoin(compDesc)}`);
-            const customColors = customColorPaletteInput.value.trim(); let allColors = [...selectedColorPalettesArray]; if (customColors) allColors.push(customColors); let flairElements = []; if (selectedDetailTexturesArray.length > 0) flairElements.push(`showcasing ${naturalJoin(selectedDetailTexturesArray)}`); if (allColors.length > 0) flairElements.push(`utilizing a color palette of ${naturalJoin(allColors)}`); if (selectedKeywordsArray.length > 0) flairElements.push(`subtly incorporating ${naturalJoin(selectedKeywordsArray)} for added depth and uniqueness`); if (flairElements.length > 0) addSegment(`Artistic flair is enhanced by ${naturalElements.join(', ')}`); // Fixed variable name here
-            const platform = targetPlatformSelect.value; let platformNote = ""; if (platform) { const pText = targetPlatformSelect.options[targetPlatformSelect.selectedIndex].text; platformNote = `\n\n(Consider platform-specifics for ${pText} e.g., aspect ratios, negative prompts, or parameter syntax.)`;}
-            livePreview.value = promptSegments.join(' ').replace(/\s+/g, ' ').trim() + platformNote;
-        }
-
-        // Unified notification function
-        function showUiNotification(message, type = 'success', autoHide = 3500) {
-            uiNotification.textContent = message;
-            uiNotification.className = `notification ${type}`; // Apply base class and type class
-            uiNotification.style.display = 'block';
-
-            if (autoHide > 0) {
-                setTimeout(() => { hideUiNotification(); }, autoHide);
-            }
-        }
-
-        function hideUiNotification() {
-             uiNotification.style.display = 'none';
-             uiNotification.textContent = '';
-             uiNotification.className = 'notification'; // Reset classes
-        }
-
-
-        copyPromptButton.addEventListener('click', () => {
-            let originalText = livePreview.value;
-            let textToCopy = originalText;
-            const platformNoteIndex = originalText.indexOf("\n\n(Consider platform-specifics for");
-            if (platformNoteIndex !== -1) {
-                textToCopy = originalText.substring(0, platformNoteIndex).trim(); // Trim after removing note
-            }
-
-            if (!textToCopy) {
-                showUiNotification("Nothing to copy.", 'error');
-                return;
-            }
-
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showUiNotification('Prompt copied to clipboard!', 'success');
-            }).catch(err => {
-                console.error('Failed to copy prompt: ', err);
-                try {
-                    // Fallback for older browsers or specific environments
-                    const tempTextArea = document.createElement('textarea');
-                    tempTextArea.value = textToCopy;
-                    tempTextArea.style.position = 'fixed'; // Avoid scrolling to bottom
-                    tempTextArea.style.opacity = '0'; // Hide it
-                    document.body.appendChild(tempTextArea);
-                    tempTextArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempTextArea);
-                    showUiNotification('Prompt copied (fallback)!', 'success');
-                } catch (execCommandErr) {
-                    console.error('Fallback copy failed: ', execCommandErr);
-                    showUiNotification('Copy failed. Please copy manually.', 'error', 0); // Don't auto-hide manual copy message
-                }
-            });
-        });
-
-        // --- Initial Setup ---
-        populateDropdown(lightingQualitySelect, lightingQualityOptions);
-        populateDropdown(detailTextureSingleSelect, detailTextureOptionsData);
-        populateDropdown(colorPaletteSingleSelect, colorPaletteOptionsData);
-        const initialDeviceCompat = deviceCompatibility[imagingDeviceSelect.value] || deviceCompatibility[""];
-        populateDropdown(lensSimulationSelect, initialDeviceCompat.lenses);
-        filmStockInput.placeholder = initialDeviceCompat.filmStockPlaceholder;
-        renderSelectedItems(selectedOverallStylesContainer, selectedStylesArray, removeOverallStyle);
-        renderSelectedItems(selectedDetailTexturesContainer, selectedDetailTexturesArray, removeDetailTexture);
-        renderSelectedItems(selectedColorPalettesContainer, selectedColorPalettesArray, removeColorPalette);
-        renderSelectedItems(selectedSecretKeywordsContainer, selectedKeywordsArray, removeSecretKeyword);
-
-        generatePrompt();
-    });
     </script>
 </body>
 </html>
