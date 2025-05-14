@@ -1,0 +1,25 @@
+{
+  "name": "promptcraft-desktop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ridwan",
+  "license": "ISC",
+  "build": {
+    "appId": "com.yourname.promptcraftdesktop",
+    "productName": "PromptCraft Desktop",
+    "mac": {
+      "category": "public.app-category.utilities"
+    }
+  },
+  "devDependencies": {
+    "electron": "^36.2.0",
+    "electron-builder": "^26.0.12"
+  }
+}
